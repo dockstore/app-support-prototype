@@ -24,6 +24,10 @@ Launch with docker-compose command:
 At this point, your Django app should be running at port 8000 on your Docker host.
 On Docker for Mac and Docker for Windows, go to http://localhost:8000
 
+Terminate with `ctrl+c` or 
+
+   docker-compose down
+
 ## See Also
 
 See the following which were helpful in putting together this hello world:
