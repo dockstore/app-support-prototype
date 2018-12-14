@@ -26,6 +26,8 @@ This tutorial is key: https://kubernetes.io/docs/tutorials/hello-minikube/
 
 Below is how we interactively start a really minimal service using Kubernetes.  Unlike the previous example I'm not using a config file to drive the process which we really need to if we're going to have something to register on Dockstore.  Also, I need an example that uses a Dockerfile.
 
+This tutorial shows you how to run a simple Hello World Node.js app on Kubernetes using Minikube:
+
 ```
 $ minikube start
 Starting local Kubernetes cluster...
