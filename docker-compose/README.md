@@ -37,7 +37,7 @@ services:
 ```
 
 **If we had the Docker Compose file and the Docker images available then we could launch this
-app from Terra.** 
+app from Terra.**
 
 The config also shows two important features:
 
