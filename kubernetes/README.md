@@ -24,6 +24,8 @@ minikube start
 
 This tutorial is key: https://kubernetes.io/docs/tutorials/hello-minikube/
 
+Below is how we interactively start a really minimal service using Kubernetes.  Unlike the previous example I'm not using a config file to drive the process which we really need to if we're going to have something to register on Dockstore.  Also, I need an example that uses a Dockerfile.
+
 ```
 $ minikube start
 Starting local Kubernetes cluster...
@@ -90,3 +92,5 @@ Stopping "minikube"...
 ## Launching
 
 ## See Also
+
+* This [tutorial](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) cover the use of config files which is what we need to have something that is independent of command line and similar to the way docker compose works.
