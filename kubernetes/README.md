@@ -28,12 +28,14 @@ Below is how we interactively start a really minimal service using Kubernetes.  
 
 This tutorial shows you how to run a simple Hello World Node.js app on Kubernetes using Minikube:
 
+LEFT OFF WITH: the tutorial doesn't seem to work on my computer...
+
 ```
+# start with a local vm version of kubernetes
+
 $ minikube start
-Starting local Kubernetes cluster...
-Running pre-create checks...
-Creating machine...
-Starting local Kubernetes cluster...
+
+$ kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
 
 $ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 deployment.apps/hello-minikube created
