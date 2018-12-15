@@ -99,6 +99,11 @@ users:
     client-certificate: /Users/boconnor/.minikube/client.crt
     client-key: /Users/boconnor/.minikube/client.key
 
+# see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment
+# https://github.com/kubernetes/kubernetes/issues/24873 
+$ deploy from config
+kubectl create -f kubernetes.yaml
+
 
 $ kubectl delete services hello-minikube
 service "hello-minikube" deleted
