@@ -22,20 +22,16 @@ minikube start
 
 ## Testing
 
-This tutorial is key: https://kubernetes.io/docs/tutorials/hello-minikube/
-
 Below is how we interactively start a really minimal service using Kubernetes.  Unlike the previous example I'm not using a config file to drive the process which we really need to if we're going to have something to register on Dockstore.  Also, I need an example that uses a Dockerfile.
 
-This tutorial shows you how to run a simple Hello World Node.js app on Kubernetes using Minikube:
-
-LEFT OFF WITH: the tutorial doesn't seem to work on my computer...
+From https://kubernetes.io/docs/setup/minikube/
 
 ```
-# start with a local vm version of kubernetes
-
 $ minikube start
-
-$ kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node --port=8080
+Starting local Kubernetes cluster...
+Running pre-create checks...
+Creating machine...
+Starting local Kubernetes cluster...
 
 $ kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
 deployment.apps/hello-minikube created
@@ -80,6 +76,28 @@ Request Headers:
 
 Request Body:
 	-no body in request-
+
+# get config
+$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /Users/boconnor/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /Users/boconnor/.minikube/client.crt
+    client-key: /Users/boconnor/.minikube/client.key
 
 
 $ kubectl delete services hello-minikube
