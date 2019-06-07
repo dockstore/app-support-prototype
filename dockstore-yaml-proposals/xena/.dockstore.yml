@@ -13,7 +13,10 @@ service:
      - docker-compose.yml 
      - README.md
   scripts:
+    prerun:
+    run:
         - docker-compose up -d 
+    afterrun:
         - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(dataFile.name)
 
   parameters:

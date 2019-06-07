@@ -18,7 +18,12 @@ i.e., once this is all worked out, the files would be checked into that repo.
 ## Issues/Fuzzy Stuff
 
 1. The second command in the `scripts` section should only run after the docker container is up and running, as well as the service itself inside of the container. How do we indicate this reliably, i.e., not a hacky sleep?
-2. The probemap file should preferably be loaded, but the decision to do so is independent of the other data.
-3. The second command in the scripts section is referencing the name of the dataFile. This introduces variables
-4. Have tried adding the `multiple` property 
-5. What if a user wants to add something the next day?
+```
+        - docker-compose up -d 
+        - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(dataFile.name)
+```
+1. The probemap file should preferably be loaded, but the decision to do so is independent of the other data.
+1. Both the dataFile and the metadataFile need to be present. Schema currently does not capture the relationship.
+1. The second command in the scripts section is referencing the name of the dataFile, `...files/$(dataFile.name)`. This is referring to the the dataFile parameter declared later in the file. Is there a better way to do this? How would this interact with any environment variables -- would those get substituted as well.
+1. The idea of the `multiple` property is that there might n datasets that might get loaded. The `afterrun` would need to be invoked.
+1. What if a user wants to add something the next day? The client would have to know to only run `afterrun`.
