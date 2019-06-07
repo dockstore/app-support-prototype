@@ -1,0 +1,40 @@
+# .dockstore.yml for Xena
+# https://github.com/Ldcabansay/xenahub
+version: 1.1
+service:
+  subclass: docker-compose
+  name: UCSC Xena Browser
+  author: UCSC Genomics Institute
+  description: |
+    The UCSC Xena browser is an exploration tool for public and private,
+    multi-omic and clinical/phenotype data.
+    It is recommended that you configure a reverse proxy to handle HTTPS
+  files:
+     - docker-compose.yml 
+     - README.md
+  scripts:
+    prerun:
+    run:
+        - docker-compose up -d 
+    afterrun:
+        - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(dataFile.name)
+
+  parameters:
+    - HTTP_PORT:
+        type: int?
+        default: 7222
+        description: The host's HTTP port
+    - HTTPS_PORT:
+        type: int?
+        default: 7223
+        description: The host's HTTPS port
+    - dataFile:
+        type:  file?
+        description: Data for Xena in TSV format
+        targetDirectory: xena/files
+        multiple: true
+    - metadataFile:
+        type: file?
+        description: The metadata, in JSON format, that corresponds to the data
+        targetDirectory: xena/files
+        multiple: true
