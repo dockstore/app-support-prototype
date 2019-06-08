@@ -28,13 +28,14 @@ service:
         type: int?
         default: 7223
         description: The host's HTTPS port
-    - dataFile:
-        type:  file?
-        description: Data for Xena in TSV format
-        targetDirectory: xena/files
+    - dataset:
+        type: dataset?
         multiple: true
-    - metadataFile:
-        type: file?
-        description: The metadata, in JSON format, that corresponds to the data
-        targetDirectory: xena/files
-        multiple: true
+        - data:
+            type:  file
+            description: Data for Xena in TSV format
+            targetDirectory: xena/files
+        - metadata:
+            type: file?
+            description: The metadata, in JSON format, that corresponds to the data
+            targetDirectory: xena/files
