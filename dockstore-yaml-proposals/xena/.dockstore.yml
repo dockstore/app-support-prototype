@@ -16,15 +16,20 @@ service:
     prerun:
     run:
         - docker-compose up -d 
+        # or
+        - docker-compose -e HTTP_PORT=$(parameters.httpPort) -e HTTPS_PORT=$(parameters.httpsPort) up -d 
+        - # Wait until server is responding:
+        - timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:$(parameters.HTTP_PORT)/ping/)" != "200" ]]; do sleep 5; done' || false
     afterrun:
-        - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(dataset.data.name)
+        - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(parameters.dataset.data.name)
 
   parameters:
-    - HTTP_PORT:
+    # Thinking that the httpPort should be a required parameter
+    - httpPort:
         type: int?
         default: 7222
-        description: The host's HTTP port
-    - HTTPS_PORT:
+        description: The host's HTTP port.
+    - httpsPort:
         type: int?
         default: 7223
         description: The host's HTTPS port
