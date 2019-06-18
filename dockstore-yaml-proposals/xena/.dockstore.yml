@@ -17,7 +17,7 @@ service:
     run:
         - docker-compose up -d 
     afterrun:
-        - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(dataFile.name)
+        - docker exec xena java -jar /ucsc_xena/cavm-0.24.0-standalone.jar --load /root/xena/files/$(dataset.data.name)
 
   parameters:
     - HTTP_PORT:
@@ -29,7 +29,8 @@ service:
         default: 7223
         description: The host's HTTPS port
     - dataset:
-        type: dataset?
+        scope: script
+        type: dataset
         multiple: true
         - data:
             type:  file
