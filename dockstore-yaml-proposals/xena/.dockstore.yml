@@ -14,35 +14,37 @@ service:
      - README.md
      - stand_up.sh
      - load.sh
-  scripts:
-    prerun:
-    run:
-      - stand_up.sh
-    postrun:
-      - load.sh
-    status:
-      - port.sh
+     - port.sh
+     - stop.sh
 
-# Thinking about these:
-#start 
-#stop 
-#restart
+  # The following section has scripts that will be invoked
+  # in a particular order. The steps with `provision` in their name
+  # will only be executed once.
+  scripts:
+    prestartprovision:
+    prestart:
+    start: stand_up.sh
+    poststart:
+    poststartprovision: load.sh
+
+    port: port.sh
+    healthcheck:
+    stop: stop.sh
+    # END OPTIONAL section
 
   parameters:
-    # Thinking that the httpPort should be a required parameter
+    - description:
+        type: string?
+        text: An overall description of the parameters
     - httpPort:
-        type: int?
+        type: int
         default: 7222
         description: The host's HTTP port.
     - httpsPort:
-        type: int?
+        type: int
         default: 7223
         description: The host's HTTPS port
-    - myParam:
-      type: string
-      description: An arbitrary parameter
     - dataset:
-        scope: script
         type: dataset
         multiple: true
         - data:
