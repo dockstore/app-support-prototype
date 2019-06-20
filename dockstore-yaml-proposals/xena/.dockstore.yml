@@ -2,7 +2,7 @@
 # https://github.com/Ldcabansay/xenahub
 version: 1.1
 service:
-  subclass: docker-compose
+  type: docker-compose
   name: UCSC Xena Browser
   author: UCSC Genomics Institute
   description: |
@@ -21,11 +21,11 @@ service:
   # in a particular order. The steps with `provision` in their name
   # will only be executed once.
   scripts:
-    prestartprovision:
+    presprovision:
     prestart:
     start: stand_up.sh
     poststart:
-    poststartprovision: load.sh
+    postprovision: load.sh
 
     port: port.sh
     healthcheck:
@@ -33,25 +33,20 @@ service:
     # END OPTIONAL section
 
   parameters:
-    - description:
-        type: string?
-        text: An overall description of the parameters
-    - httpPort:
-        type: int
-        default: 7222
+    description:
+        description: An overall description of the parameters
+    httpPort:
+        default: "7222"
         description: The host's HTTP port.
-    - httpsPort:
-        type: int
-        default: 7223
+    httpsPort:
+        default: "7223"
         description: The host's HTTPS port
-    - dataset:
-        type: dataset
-        multiple: true
-        - data:
-            type:  file
-            description: Data for Xena in TSV format
-            targetDirectory: xena/files
-        - metadata:
-            type: file?
-            description: The metadata, in JSON format, that corresponds to the data
-            targetDirectory: xena/files
+    dataset:
+        type: dataset[]
+        files:
+            data:
+                description: Data for Xena in TSV format
+                targetDirectory: xena/files
+            metadata:
+                description: The metadata, in JSON format, that corresponds to the data
+                targetDirectory: xena/files
