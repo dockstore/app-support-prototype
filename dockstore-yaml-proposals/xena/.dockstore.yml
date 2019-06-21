@@ -1,5 +1,4 @@
 # .dockstore.yml for Xena
-# https://github.com/Ldcabansay/xenahub
 version: 1.1
 service:
   type: docker-compose
@@ -17,16 +16,23 @@ service:
      - port.sh
      - stop.sh
 
-  # The following section has scripts that will be invoked
-  # in a particular order. The steps with `provision` in their name
-  # will only be executed once.
   scripts:
-    presprovision:
+    # The following section has scripts that will be invoked
+    # in the order they are listed. The steps with `provision` in their name
+    # will only be executed once.
+    
+    # Before anything
+    preprovision:
+    # After files from the input parameter JSON have been downloaded
     prestart:
+    # Start up the service
     start: bash stand_up.sh
+    # After service has been started up
     poststart:
+    # After files have been downloaded and service started up
     postprovision: bash load.sh
 
+    # Other scripts that can be useful for the service launcher
     port: bash port.sh
     healthcheck:
     stop: bash stop.sh
