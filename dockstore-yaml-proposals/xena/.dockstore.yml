@@ -23,13 +23,13 @@ service:
   scripts:
     presprovision:
     prestart:
-    start: stand_up.sh
+    start: bash stand_up.sh
     poststart:
-    postprovision: load.sh
+    postprovision: bash load.sh
 
-    port: port.sh
+    port: bash port.sh
     healthcheck:
-    stop: stop.sh
+    stop: bash stop.sh
     # END OPTIONAL section
 
   parameters:
