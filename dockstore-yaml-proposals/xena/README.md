@@ -17,8 +17,5 @@ i.e., once this is all worked out, the files would be checked into that repo.
 
 ## Issues/Fuzzy Stuff
 
-1. The probemap file should preferably be loaded, but the decision to do so is independent of the other data.
-1. The second command in the scripts section is referencing the name of the data file, `...files/$(parameters.dataset.data.name)`. This is referring to the the dataset.data parameter declared later in the file. Is there a better way to do this? How would this interact with any environment variables -- would those get substituted as well. Doing so with `parameters` prefix.
-1. The idea of the `multiple` property is that there might n datasets that might get loaded. The `afterrun` would need to be invoked.
-1. What if a user wants to add something the next day? The client would have to know to only run `afterrun`.
-1. Should we require certain parameters, in particular the port? That way the consumer of this will know what port to access the service on.
+1. What if a user wants to add something the next day? The client would have to know to only run `postprovision`.
+2. What if there are multiple ports?

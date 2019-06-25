@@ -17,30 +17,20 @@ service:
      - stop.sh
 
   scripts:
-    # The following section has scripts that will be invoked
-    # in the order they are listed. The steps with `provision` in their name
-    # will only be executed once.
-    
-    # Before anything
-    preprovision:
-    # After files from the input parameter JSON have been downloaded
-    prestart:
-    # Start up the service
-    start: bash stand_up.sh
-    # After service has been started up
-    poststart:
-    # After files have been downloaded and service started up
-    postprovision: bash load.sh
+    # The next 5 scripts are always executed in the order listed here.
+    presprovision: # Before any provisioning
+    prestart: # After provisioning, before starting the service
+    start: stand_up.sh # Starts the service
+    poststart: # After the service has started
+    postprovision: load.sh # After the service has started. For multiple provisionings, e.g., the next day
 
-    # Other scripts that can be useful for the service launcher
-    port: bash port.sh
-    healthcheck:
-    stop: bash stop.sh
-    # END OPTIONAL section
+    port: port.sh # Returns the port the service is exposing.
+    healthcheck: # Returns
+    stop: stop.sh # Stops the service
 
+  # Parameters are passed as environment variables to all of the above scripts. As such, their names need to be valid environment variable names.
+  # The exception is parameters of type dataset and dataset[] -- those parameters are provisioned.
   parameters:
-    description:
-        description: An overall description of the parameters
     httpPort:
         default: "7222"
         description: The host's HTTP port.
