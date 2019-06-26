@@ -1,2 +1,2 @@
 #!/bin/bash
-echo ${parameters_httpPort:-7222}
+echo ${httpPort:-7222}
