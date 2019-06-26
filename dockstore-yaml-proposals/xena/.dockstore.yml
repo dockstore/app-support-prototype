@@ -33,7 +33,7 @@ service:
     # After the service has started
     poststart: 
     
-    # After the service has started. for multiple provisionings, e.g., the next day
+    # After the service has started. For multiple provisionings, e.g., the user may decide to add more data a week later.
     postprovision: bash load.sh 
 
     # Returns the port the service is exposing. Can be used by a client to know what port to proxy
@@ -46,32 +46,32 @@ service:
     stop: bash stop.sh 
 
   # Parameters are passed to the scripts as environment variables. They are service
-  # specific, i.e., the service create decides which values to make parameterizable.
+  # specific, i.e., the service creator decides which values to make parameterizable.
   parameters:
     # The name of the parameter, can be anything that is a valid environment variable name
     httpPort: 
         # An optional default value
         default: "7222"
-        # A description that tools can use to prompt the user
+        # A description that tools can use for prompting the a user.
         description: The host's HTTP port. The default is 7222.
 
-  # Data are files that are provisioned locally for the service. Each key is a dataset,
+  # Data are files that are provisioned locally for the service. Each key is a dataset name,
   # where the dataset can contain 1 to n files
   data:
-    targetDirectory: xena/files # Can override this at the dataset and/or individual file level.
     dataset_1:
+        targetDirectory: xena/files # Can override this at the individual file level.
+
         # The optional property indicates whether there can be multiple sets of files.
-        # If not set, or false, then only the one set of files can be specified
+        # If not present, or false, then only one set of files can be specified.
+        # In this case, Xena can accept multiple pairs of files, so it is true.
         multiple: true
         
-        # Can optionally override targetDirectory here
-        # targetDirectory:
-       
-        # The files property is required for datasets. It will contain one or more
-        # files. In this example, Xena expects pairs of files to uploaded, the data
-        # and the metadata.
+        # The files property is required for datasets. It will contain one or more files.
         files:
             tsv:
                 description: Data for Xena in TSV format
+          
+                # Could override targetDirectory here, but since all files go into xena/files, no need
+                # targetDirectory: 
             metadata:
                 description: The metadata, in JSON format, that corresponds to the data
