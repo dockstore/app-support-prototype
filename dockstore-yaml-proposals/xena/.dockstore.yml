@@ -61,11 +61,6 @@ service:
     dataset_1:
         targetDirectory: xena/files # Can override this at the individual file level.
 
-        # The optional property indicates whether there can be multiple sets of files.
-        # If not present, or false, then only one set of files can be specified.
-        # In this case, Xena can accept multiple pairs of files, so it is true.
-        multiple: true
-
         # The files property is required for datasets. It will contain one or more files.
         files:
             tsv:
