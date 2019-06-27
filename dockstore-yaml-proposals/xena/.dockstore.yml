@@ -10,7 +10,7 @@ service:
     It is recommended that you configure a reverse proxy to handle HTTPS
   # These are files the Dockstore will index. They will be directly downloadable from Dockstore
   files:
-     - docker-compose.yml 
+     - docker-compose.yml
      - README.md
      - stand_up.sh
      - load.sh
@@ -20,36 +20,36 @@ service:
   scripts:
     # The scripts preprovision, prestart, start, poststart, and postprovision will be executed in order.
     # The only script required to have a value is start.
-    
+
     # Before any provisioning
-    preprovision: 
-    
+    preprovision:
+
     # After provisioning, before starting the service
-    prestart: 
-     
+    prestart:
+
     # Starts the service
-    start: bash stand_up.sh 
-    
+    start: stand_up.sh
+
     # After the service has started
-    poststart: 
-    
+    poststart:
+
     # After the service has started. For multiple provisionings, e.g., the user may decide to add more data a week later.
-    postprovision: bash load.sh 
+    postprovision: load.sh
 
     # Returns the port the service is exposing. Can be used by a client to know what port to proxy
-    port: bash port.sh
-    
+    port: port.sh
+
     # Returns an exit code of 0 if service is running successfully.
-    healthcheck: 
-    
+    healthcheck:
+
     # Stops the service
-    stop: bash stop.sh 
+    stop: stop.sh
 
   # Parameters are passed to the scripts as environment variables. They are service
   # specific, i.e., the service creator decides which values to make parameterizable.
   parameters:
     # The name of the parameter, can be anything that is a valid environment variable name
-    httpPort: 
+    httpPort:
         # An optional default value
         default: "7222"
         # A description that tools can use for prompting the a user.
@@ -65,13 +65,13 @@ service:
         # If not present, or false, then only one set of files can be specified.
         # In this case, Xena can accept multiple pairs of files, so it is true.
         multiple: true
-        
+
         # The files property is required for datasets. It will contain one or more files.
         files:
             tsv:
                 description: Data for Xena in TSV format
-          
+
                 # Could override targetDirectory here, but since all files go into xena/files, no need
-                # targetDirectory: 
+                # targetDirectory:
             metadata:
                 description: The metadata, in JSON format, that corresponds to the data
