@@ -1,5 +1,8 @@
 {
   "description": "Loads probe map, clinical, and expression data sets.",
+  "environment": {
+    "httpPort": "7222"
+  },
   "data": {
     "dataset_1": [
       {

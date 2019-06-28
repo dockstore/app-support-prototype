@@ -33,7 +33,7 @@ service:
     # After the service has started
     poststart:
 
-    # After the service has started. For multiple provisionings, e.g., the user may decide to add more data a week later.
+    # After the service has started. For multiple provisionings, e.g., the user may decide to add more data later.
     postprovision: load.sh
 
     # Returns the port the service is exposing. Can be used by a client to know what port to proxy
@@ -45,18 +45,16 @@ service:
     # Stops the service
     stop: stop.sh
 
-  # Parameters are passed to the scripts as environment variables. They are service
-  # specific, i.e., the service creator decides which values to make parameterizable.
-  parameters:
-    # The name of the parameter, can be anything that is a valid environment variable name
-    httpPort:
-        # An optional default value
-        default: "7222"
+  # Items in this section are passed to the scripts as environment variables.
+  # The names must be valid enviornment variable names.
+  environment:
+    httpPort: # The name of the environment variable
+        default: "7222" # An optional default value
         # A description that tools can use for prompting a user.
         description: The host's HTTP port. The default is 7222.
 
   # Data are files that are provisioned locally for the service. Each key is a dataset name,
-  # where the dataset can contain 1 to n files
+  # and each dataset can contain 1 to n files
   data:
     # The name of a dataset, can be anything
     dataset_1:
@@ -66,7 +64,9 @@ service:
         # relative to where Xena is running.
         targetDirectory: xena/files 
 
-        # The files property is required for datasets. It will contain one or more files.
+        # The files property is required for datasets. It contains one or more files.
+        # The sets of files can be repeated. In the sample xena-all.json, there are
+        # 3 pairs of tsv/metadata files.
         files:
             tsv:
                 description: Data for Xena in TSV format
@@ -74,4 +74,4 @@ service:
                 # Could override targetDirectory here, but since all files go into xena/files, no need
                 # targetDirectory:
             metadata:
-                description: The metadata, in JSON format, that corresponds to the data
+                description: The metadata, in JSON format, that corresponds to the previous tsv file
