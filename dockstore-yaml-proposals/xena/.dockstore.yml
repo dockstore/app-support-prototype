@@ -52,14 +52,19 @@ service:
     httpPort:
         # An optional default value
         default: "7222"
-        # A description that tools can use for prompting the a user.
+        # A description that tools can use for prompting a user.
         description: The host's HTTP port. The default is 7222.
 
   # Data are files that are provisioned locally for the service. Each key is a dataset name,
   # where the dataset can contain 1 to n files
   data:
+    # The name of a dataset, can be anything
     dataset_1:
-        targetDirectory: xena/files # Can override this at the individual file level.
+        # The location on the local system where files should be downloaded to. This
+        # can be overriden if desired on an individual file level.
+        # In this case, Xena requires files to be located in the subdirectory xena/files
+        # relative to where Xena is running.
+        targetDirectory: xena/files 
 
         # The files property is required for datasets. It will contain one or more files.
         files:
