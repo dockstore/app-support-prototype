@@ -1,2 +1,3 @@
-#!/bin/bash
-echo ${parameters_httpPort:-7222}
+#!/usr/bin/env bash
+set -e
+echo ${httpPort:-7222}

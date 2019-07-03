@@ -1,10 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 echo "Starting up Xena Hub"
+
+# docker-compose has variables in caps
 export HTTP_PORT=$httpPort
 export HTTPS_PORT=$httpsPort
+
 docker-compose up -d
 # Wait for server to respond before exiting
-# Could use timeout, but not available on a Mac
+# Could instead use timeout, but not available on a Mac
 attempt_counter=0
 sleep_between_attempts=5
 max_time_to_wait_in_seconds=300

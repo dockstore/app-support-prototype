@@ -19,3 +19,5 @@ i.e., once this is all worked out, the files would be checked into that repo.
 
 1. What if a user wants to add something the next day? The client would have to know to only run `postprovision`.
 2. What if there are multiple ports?
+3. Maven has resume
+4. Move targetDirectory up
