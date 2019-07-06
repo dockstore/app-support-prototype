@@ -16,6 +16,7 @@ service:
      - load.sh
      - port.sh
      - stop.sh
+     - xena-all.json
 
   scripts:
     # The scripts preprovision, prestart, start, poststart, and postprovision will be executed in order.
