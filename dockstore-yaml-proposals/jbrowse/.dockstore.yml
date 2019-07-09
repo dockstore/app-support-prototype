@@ -4,7 +4,7 @@ service:
   type: docker-compose
   name: JBrowse
   author:
-  description: o
+  description: |
     JBrowse is a fast, scalable genome browser built completely with JavaScript and HTML5.
     It can run on your desktop, or be embedded in your website.
   # These are files the Dockstore will index. They will be directly downloadable from Dockstore
