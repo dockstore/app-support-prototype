@@ -10,13 +10,14 @@ The services are:
 * (not ready) [Bravo](https://github.com/statgen/bravo) -- Variant browser
 * (not ready) generick8s -- this is a Kubernetes guest book example application. Using it until I can find a bioinformatics, K8s service.
 
-The schema of the .dockstore.yml follows. For now, we will describe by example; a more formal schema may follow.
+The schema of the .dockstore.yml follows. For now, we will describe by example; a formal schema may follow.
 
 ### Terms
 
-* Service -- what the .dockstore.yml describes
-* Tool -- the software that launches the service, using the information provided in the .dockstore.yml
+* Service -- what the .dockstore.yml describes.
 * User -- the consumer of the service.
+* Input Parameter file -- allows the user to specify inputs to the service, e.g., what genomics data to download, what environment variables to set.
+* Launcher -- the application that launches the service, using the information provided in the .dockstore.yml and the input parameter file. Examples: Leonardo, Dockstore CLI.
 
 ```
 # The dockstore.yml version; 1.1 is required for services
@@ -47,57 +48,52 @@ service:
      - load.sh
      - port.sh
      - stop.sh
-     - xena-all.json
+     - healthcheck.sh
 
   scripts:
     # The scripts section has 8 pre-defined keys. 5 are run in a defined order,
-    # the other 3 are utilities that can be invoked by the tool launching the service.
-    # Only 3 keys must exist and have values: start, port, and stop.
+    # the other 3 are utilities that can be invoked by the service launcher.
+    # Only 3 of the keys must exist and have values: start, port, and stop.
+    # The keys' values, if present, must be script files that are indexed (in the files section, above).
 
-    # The tool launching the service will execute the scripts in the following order
+    # The service launcher will execute the scripts in the following order. All steps other than start are optional,
+    # and if they are missing or have no value specified, will be ignored.
+    #
     # 1. preprovision -- Invoked before anything has been done.
     # 2. prestart -- Executed after data has been downloaded locally (see the data section)
     # 3. start -- Starts up the service.
     # 4. poststart -- After the service has been started
     # 5. postprovision -- Also after the service has been started. This might be invoked multiple times, e.g., if the user decides to load multiple sets of data. 
 
-    # In addition, the following scripts will be invoked by the tool launching the service:
-    # 1. port - Which port the service is exposing. This provides a generic way for the tool to
-    
+    # In addition, the following scripts, if present, are for use by the launcher:
+    # 1. port - Which port the service is exposing. This provides a generic way for the tool to know which port is being exposed, e.g., to reverse proxy it.
+    # 2. healthcheck - exit code of 0 if service is running normally, non-0 otherwise.
+    # 3. stop - stops the service
 
-    preprovision:
-
-    prestart:
-
-    # Starts the service
+    preprovision: 
+    prestart: 
     start: stand_up.sh
-
-    # After the service has started
-    poststart:
-
-    # After the service has started. For multiple provisionings, e.g., the user may decide to add more data later.
+    poststart: 
     postprovision: load.sh
 
-    # Returns the port the service is exposing. Can be used by a client to know what port to proxy
     port: port.sh
-
-    # Returns an exit code of 0 if service is running successfully.
-    healthcheck:
-
-    # Stops the service
+    healthcheck: healthcheck.sh
     stop: stop.sh
 
-  # Items in this section are passed to the scripts as environment variables.
-  # The names must be valid enviornment variable names.
   environment:
+    # These are environment variables that the tool is responsible for passing to any scripts that it invokes.
+    # The names must be valid environment variable names.
+    # Users can override these.
+    # These variables are service-specific, i.e., the service creator decides what values, if any, to 
+    # expose as environment variables.
+    
     httpPort: # The name of the environment variable
         default: "7222" # An optional default value
-        # A description that tools can use for prompting a user.
         description: The host's HTTP port. The default is 7222.
 
-  # Data are files that are provisioned locally for the service. Each key is a dataset name,
-  # and each dataset can contain 1 to n files
   data:
+    # Data are files that are provisioned locally for the service. Each key is a dataset name,
+    # and each dataset can contain 1 to n files
     # The name of a dataset, can be anything
     dataset_1:
         # The location on the local system where files should be downloaded to. This
