@@ -98,14 +98,9 @@ service:
     #    - An optional default value, which will be used if the user does not specify in the input file
     #    - An optional description, which can be used by the service launcher as a prompt
     #
-    # Note that environment variables values' are strings. Because YAML recognizes both
-    # strings, booleans, and numbers, it is safest to double quote values that may be
-    # interpreted as booleans, integers, or floats.
-    #
-    #
     
     httpPort:
-        default: "7222"
+        default: 7222
         description: The host's HTTP port. The default is 7222.
 
   data:
