@@ -1,6 +1,6 @@
-# Proposals
+# Dockstore Service Configuration Proposals
 
-This contains subdirectories of evolving example and proposed .dockstore.yml files, to try to handle
+This directory contains subdirectories of evolving example and proposed .dockstore.yml files, to try to handle
 concrete services that might get registered with Dockstore.
 
 The services are:
@@ -10,40 +10,44 @@ The services are:
 * (not ready) [Bravo](https://github.com/statgen/bravo) -- Variant browser
 * (not ready) generick8s -- this is a Kubernetes guest book example application. Using it until I can find a bioinformatics, K8s service.
 
-The schema of the .dockstore.yml follows. For now, we will describe by example; a formal schema may follow.
 
 ### Terms
 
-* Service -- what the .dockstore.yml describes.
+* Service -- A long running process, such as a web app or interactive application.
+* .dockstore.yml -- A configuration file that describes a service.
+* Launcher or Service Launcher -- An application that launches the service, using the information provided in the .dockstore.yml and the input parameter file. Examples: Leonardo, Dockstore CLI.
 * User -- the consumer of the service.
-* Input Parameter file -- allows the user to specify inputs to the service, e.g., what genomics data to download, what environment variables to set.
-* Launcher -- the application that launches the service, using the information provided in the .dockstore.yml and the input parameter file. Examples: Leonardo, Dockstore CLI.
-
+* Input parameter file -- allows the user and/or launcher to specify inputs to the service, e.g., what genomics data to download, what environment variables to set.
 
 ### The .dockstore.yml
+
+The .dockstore.yml is similar to .travis.yml and .circle-ci/config.yml; it is a file committed to a source code repository, and it describes the service. The
+launcher uses the file to stand up the service. The .dockstore.yml in also used by Docsktore to surface the service in Dockstore.
+
+The schema of the .dockstore.yml follows. For now, we will describe by example; a formal schema may follow.
 
 ```
 # The dockstore.yml version; 1.1 is required for services
 version: 1.1
 
-# The service key, which is required for services
+# A required key named service
 service:
-  # The type is required, and can be docker-compose, kubernetes, or helm. 
-  type: docker-compose 
+  # The type is required, and can be docker-compose, kubernetes, or helm.
+  type: docker-compose
 
   # The name of the service, required
-  name: UCSC Xena Browser # The name of the service, required
+  name: UCSC Xena Browser
 
   # The author, optional
-  author: UCSC Genomics Institute # The service's author
+  author: UCSC Genomics Institute
 
   # An optional description
-  description: | 
+  description: |
     The UCSC Xena browser is an exploration tool for public and private,
     multi-omic and clinical/phenotype data.
     It is recommended that you configure a reverse proxy to handle HTTPS
 
-  # These are files the Dockstore will index. They will be directly downloadable from Dockstore. Wildcards are not allowed.
+  # These are files the Dockstore will index. They will be directly downloadable from Dockstore. Wildcards are not supported.
   files:
      - docker-compose.yml
      - README.md
@@ -66,17 +70,17 @@ service:
     # 2. prestart -- Executed after data has been downloaded locally (see the data section)
     # 3. start -- Starts up the service.
     # 4. poststart -- After the service has been started
-    # 5. postprovision -- Also after the service has been started. This might be invoked multiple times, e.g., if the user decides to load multiple sets of data. 
+    # 5. postprovision -- Also after the service has been started. This might be invoked multiple times, e.g., if the user decides to load multiple sets of data.
 
     # In addition, the following scripts, if present, are for use by the launcher:
     # 1. port - Which port the service is exposing. This provides a generic way for the tool to know which port is being exposed, e.g., to reverse proxy it.
     # 2. healthcheck - exit code of 0 if service is running normally, non-0 otherwise.
     # 3. stop - stops the service
 
-    preprovision: 
-    prestart: 
+    preprovision:
+    prestart:
     start: stand_up.sh
-    poststart: 
+    poststart:
     postprovision: load.sh
 
     port: port.sh
@@ -84,10 +88,10 @@ service:
     stop: stop.sh
 
   environment:
-    # These are environment variables that the tool is responsible for passing to any scripts that it invokes.
+    # These are environment variables that the launcher is responsible for passing to any scripts that it invokes.
     # The names must be valid environment variable names.
-    # Users can override these.
-    # These variables are service-specific, i.e., the service creator decides what values, if any, to 
+    # Users can specify the values of the parameters in the input parameter JSON (see below).
+    # These variables are service-specific, i.e., the service creator decides what values, if any, to
     # expose as environment variables.
     # There are three parts to the environment variable
     #    - The name
@@ -131,7 +135,7 @@ service:
 
 ### The Input Parameter JSON
 
-Users will specify values for their services via an input parameter JSON. This is inspired by how parameters
+Users specify values for their services via an input parameter JSON file. This is inspired by how parameters
 are handled in CWL and WDL. The user will create an input parameter JSON file, and specify the file to the
 service launcher. Alternatively, the service launcher can generate the JSON, perhaps after dynamically
 prompting the user for inputs. The way the input parameter JSON is passed to the service launcher
@@ -144,10 +148,53 @@ The input parameter JSON has 3 sections.
 This is an optional property that describes the JSON. If the service creator wants to provide several
 "pre-canned" JSON files, the descriptions can be used to distinguish between the files.
 
+##### Example
+```
+{
+  "description": "Loads probe map, clinical, and expression data sets.",
+...
+```
+
 #### environment
 
-This section is a map of environment variable names to environment variable values.
+This is an optional map of environment variable names to environment variable values.
 
-### data
+##### Example
+
+```
+  ...
+  "environment": {
+    "httpPort": "7222"
+  },
+  ...
+```
+
+#### data
 
 This section is a map of dataset names, where each dataset specifies the files to be downloaded to the local system.
+Note that:
+1. The name of the dataset, `dataset_1` in this case, must match a name declared in `.dockstore.yml`.
+2. The names of the files within the dataset, in this case, `tsv` and `metadata`, must all match the file
+names for the dataset in `.dockstore.yml`.
+3. The files in the dataset are specified as an array, which allows the user to specify multiple sets of data.
+
+```
+  ...
+  "data": {
+    "dataset_1": [
+      {
+        "tsv": "https://xena.treehouse.gi.ucsc.edu/download/TreehousePEDv9_Ribodeplete_clinical_metadata.2019-03-25.tsv",
+        "metadata": "https://xena.treehouse.gi.ucsc.edu/download/TreehousePEDv9_Ribodeplete_clinical_metadata.2019-03-25.tsv.json"
+      },
+      {
+        "tsv": "https://xena.treehouse.gi.ucsc.edu/download/TreehousePEDv9_Ribodeplete_unique_ensembl_expected_count.2019-03-25.tsv",
+        "metadata": "https://xena.treehouse.gi.ucsc.edu/download/TreehousePEDv9_Ribodeplete_unique_ensembl_expected_count.2019-03-25.tsv.json"
+      },
+      {
+        "tsv": "https://xena.treehouse.gi.ucsc.edu/download/gencode.v23.annotation.gene.probemap",
+        "metadata": "https://xena.treehouse.gi.ucsc.edu/download/gencode.v23.annotation.gene.probemap.json"
+      }
+    ]
+  }
+  ...
+```
