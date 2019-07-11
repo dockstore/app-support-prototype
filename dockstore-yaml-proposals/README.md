@@ -19,6 +19,9 @@ The schema of the .dockstore.yml follows. For now, we will describe by example; 
 * Input Parameter file -- allows the user to specify inputs to the service, e.g., what genomics data to download, what environment variables to set.
 * Launcher -- the application that launches the service, using the information provided in the .dockstore.yml and the input parameter file. Examples: Leonardo, Dockstore CLI.
 
+
+### The .dockstore.yml
+
 ```
 # The dockstore.yml version; 1.1 is required for services
 version: 1.1
@@ -86,25 +89,35 @@ service:
     # Users can override these.
     # These variables are service-specific, i.e., the service creator decides what values, if any, to 
     # expose as environment variables.
+    # There are three parts to the environment variable
+    #    - The name
+    #    - An optional default value, which will be used if the user does not specify in the input file
+    #    - An optional description, which can be used by the service launcher as a prompt
+    #
+    # Note that environment variables values' are strings. Because YAML recognizes both
+    # strings, booleans, and numbers, it is safest to double quote values that may be
+    # interpreted as booleans, integers, or floats.
+    #
+    #
     
-    httpPort: # The name of the environment variable
-        default: "7222" # An optional default value
+    httpPort:
+        default: "7222"
         description: The host's HTTP port. The default is 7222.
 
   data:
-    # Data are files that are provisioned locally for the service. Each key is a dataset name,
-    # and each dataset can contain 1 to n files
-    # The name of a dataset, can be anything
+    # This section describes data that should be provisioned locally for use by
+    # the service. The service launcher is responsible for provisioning the data.
+    #
+    # Each key in this section is the name of a dataset. Each dataset can have
+    # 1 to n files. 
+    #
+    # Each dataset has the following properties:
+    #   - targetDirectory -- required, indicates where the files in the dataset should be downloaded to. Paths are relative.
+    #   - files -- required, 1 to n files, where each file has the following attributes:
+    #           - description -- a description of the file
+    #           - targetDirectory -- optionally override the dataset's targetDirectory if this file needs to go in a diffferent location.
     dataset_1:
-        # The location on the local system where files should be downloaded to. This
-        # can be overriden if desired on an individual file level.
-        # In this case, Xena requires files to be located in the subdirectory xena/files
-        # relative to where Xena is running.
         targetDirectory: xena/files 
-
-        # The files property is required for datasets. It contains one or more files.
-        # The sets of files can be repeated. In the sample xena-all.json, there are
-        # 3 pairs of tsv/metadata files.
         files:
             tsv:
                 description: Data for Xena in TSV format
@@ -115,3 +128,26 @@ service:
                 description: The metadata, in JSON format, that corresponds to the previous tsv file
 
 ```
+
+### The Input Parameter JSON
+
+Users will specify values for their services via an input parameter JSON. This is inspired by how parameters
+are handled in CWL and WDL. The user will create an input parameter JSON file, and specify the file to the
+service launcher. Alternatively, the service launcher can generate the JSON, perhaps after dynamically
+prompting the user for inputs. The way the input parameter JSON is passed to the service launcher
+is specific to the service launcher.
+
+The input parameter JSON has 3 sections.
+
+#### description
+
+This is an optional property that describes the JSON. If the service creator wants to provide several
+"pre-canned" JSON files, the descriptions can be used to distinguish between the files.
+
+#### environment
+
+This section is a map of environment variable names to environment variable values.
+
+### data
+
+This section is a map of dataset names, where each dataset specifies the files to be downloaded to the local system.
