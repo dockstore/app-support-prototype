@@ -22,7 +22,7 @@ The services are:
 ### The .dockstore.yml
 
 The .dockstore.yml is similar to .travis.yml and .circle-ci/config.yml; it is a file committed to a source code repository, and it describes the service. The
-launcher uses the file to stand up the service. The .dockstore.yml in also used by Docsktore to surface the service in Dockstore.
+launcher uses the file to stand up the service. The .dockstore.yml in also used by Dockstore to surface the service in Dockstore.
 
 The schema of the .dockstore.yml follows. For now, we will describe by example; a formal schema may follow.
 
@@ -58,29 +58,29 @@ service:
      - healthcheck.sh
 
   scripts:
-    # The scripts section has 8 pre-defined keys. 5 are run in a defined order,
+    # The scripts section has 7 pre-defined keys. 4 are run in a defined order,
     # the other 3 are utilities that can be invoked by the service launcher.
     # Only 3 of the keys must exist and have values: start, port, and stop.
-    # The keys' values, if present, must be script files that are indexed (in the files section, above).
+    # The other keys are optional.
+    # The keys' values must be script files that are indexed (in the files section, above).
 
     # The service launcher will execute the scripts in the following order. All steps other than start are optional,
     # and if they are missing or have no value specified, will be ignored.
     #
-    # 1. preprovision -- Invoked before anything has been done.
-    # 2. prestart -- Executed after data has been downloaded locally (see the data section)
+    # 1. preprovision -- Invoked before any data has been downloaded and some initialization is required. Not sure if we need this one.
+    # 2. prestart -- Executed after data has been downloaded locally, but before service has started (see the data section).
     # 3. start -- Starts up the service.
-    # 4. poststart -- After the service has been started
-    # 5. postprovision -- Also after the service has been started. This might be invoked multiple times, e.g., if the user decides to load multiple sets of data.
+    # 4. postprovision -- After the service has been started. This might be invoked multiple times, e.g., if the user decides to load multiple sets of data.
 
-    # In addition, the following scripts, if present, are for use by the launcher:
+    # In addition, the following scripts, if present and with a value, are for use by the launcher:
     # 1. port - Which port the service is exposing. This provides a generic way for the tool to know which port is being exposed, e.g., to reverse proxy it.
     # 2. healthcheck - exit code of 0 if service is running normally, non-0 otherwise.
     # 3. stop - stops the service
 
-    preprovision:
-    prestart:
+    # Since we don't have scripts for preprovision or prestart in this example, we don't specify them
+    # preprovision:
+    # prestart:
     start: stand_up.sh
-    poststart:
     postprovision: load.sh
 
     port: port.sh
@@ -114,7 +114,7 @@ service:
     #   - targetDirectory -- required, indicates where the files in the dataset should be downloaded to. Paths are relative.
     #   - files -- required, 1 to n files, where each file has the following attributes:
     #           - description -- a description of the file
-    #           - targetDirectory -- optionally override the dataset's targetDirectory if this file needs to go in a diffferent location.
+    #           - targetDirectory -- optionally override the dataset's targetDirectory if this file needs to go in a different location.
     dataset_1:
         targetDirectory: xena/files 
         files:
@@ -193,3 +193,12 @@ names for the dataset in `.dockstore.yml`.
   }
   ...
 ```
+
+### TODO
+
+* Not sure if we need the preprovision script.
+* Currently the contract for the port script is to return a single port. When you run multiple services through
+docker-compose, you may end up with multiple ports exposed. The idea behind this script is to return one port that
+can be reverse proxied. We could change the contract to return an array of ports, but then more information
+would be needed as to how the reverse proxy would route to all the different ports. For now, we will assume
+just one port.
