@@ -8,7 +8,6 @@ services:
       - 8080:8080
     volumes:
       - TYCHO_NFS/cloud-top:/usr/local/renci/data
-    deploy:
-      resources:
-        limits:
-          nvidia.com/gpu: 1
+    resources:
+      limits:
+        nvidia.com/gpu: "1"
