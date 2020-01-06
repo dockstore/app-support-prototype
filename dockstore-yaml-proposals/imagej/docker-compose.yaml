@@ -11,8 +11,4 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
-          memory: 2000M
-        reservations:
-          cpus: '0.50'
-          memory: 2000M
+          nvidia.com/gpu: 1
