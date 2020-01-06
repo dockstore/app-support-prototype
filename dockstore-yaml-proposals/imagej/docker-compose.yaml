@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - pvc:/usr/local/renci/data
+      - TYCHO_NFS/cloud-top:/usr/local/renci/data
     deploy:
       resources:
         limits:
