@@ -12,3 +12,4 @@ services:
       resources:
         limits:
           gpus: '1'
+          memory: '100Mb'
