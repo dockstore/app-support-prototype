@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   imagej:
-    image: heliumdatastage/renci-guacamole-vnc:test
+    image: heliumdatastage/napari-alias-imagej:test
     container_name: imagej
     entrypoint: /init
     ports:
