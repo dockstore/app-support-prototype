@@ -12,4 +12,4 @@ services:
       resources:
         limits:
           gpus: '1'
-          memory: '2000M'
+          memory: '5000M'
