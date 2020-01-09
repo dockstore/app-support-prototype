@@ -11,5 +11,5 @@ services:
     deploy:
       resources:
         limits:
-          gpus: '2'
+          gpus: '1'
           memory: '10000M'
