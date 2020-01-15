@@ -1,19 +1,18 @@
 version: "3.6"
 services:
   imagej:
-    image: heliumdatastage/renci-guacamole-vnc:with-ohif-google-health
+    image: heliumdatastage/renci-guacamole-vnc:test
     container_name: imagej
     entrypoint: /init
-    environment:
-      - CLIENT_ID=384421289758-ldvhvdno37agc1odn45l1dcnj3e28eid.apps.googleusercontent.com
     ports:
       - 8080:8080
-      - 3000:80
+    volumes:
+      - TYCHO_NFS/cloud-top:/usr/local/renci/data
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 5000M
+          cpus: '0.50'
+          memory: 2000M
         reservations:
           cpus: '0.50'
-          memory: 5000M
+          memory: 2000M
