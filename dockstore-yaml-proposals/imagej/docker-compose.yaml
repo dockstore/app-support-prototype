@@ -4,6 +4,8 @@ services:
     image: heliumdatastage/renci-guacamole-vnc:with-ohif-google-health
     container_name: imagej
     entrypoint: /init
+    environment:
+      - CLIENT_ID=384421289758-ldvhvdno37agc1odn45l1dcnj3e28eid.apps.googleusercontent.com
     ports:
       - 8080:8080
       - 3000:80
