@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   imagej:
-    image: heliumdatastage/renci-guacamole-vnc:test
+    image: heliumdatastage/cloudtop-imagej-napari:latest
     container_name: imagej
     entrypoint: /init
     ports:
@@ -11,5 +11,8 @@ services:
     deploy:
       resources:
         limits:
-          gpus: '1'
-          memory: 10000M
+          cpus: '0.50'
+          memory: 6000M
+        reservations:
+          cpus: '0.50'
+          memory: 6000M
