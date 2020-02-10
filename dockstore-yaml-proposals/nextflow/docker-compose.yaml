@@ -7,7 +7,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - cd /opt/nextflow-api; python3 scripts/startup.sh
+      - cd /opt/nextflow-api; scripts/startup.sh
     ports:
       - $HOST_PORT:8080
     volumes:
