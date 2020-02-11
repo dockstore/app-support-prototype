@@ -12,8 +12,6 @@ services:
       - $HOST_PORT:8888
     volumes:
       - TYCHO_NFS/cloud-top:/mydata
-#      - ./:/mydata1
-#      - ./home:/mydata2
     deploy:
       resources:
         limits:
