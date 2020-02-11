@@ -4,7 +4,10 @@ version: "3"
 services:
   jupyter-datascience:
     image: jupyter/datascience-notebook
-    entrypoint: start.sh jupyter lab --LabApp.token=
+    entrypoint:
+      - /bin/bash
+      - -c
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX}
     ports:
       - $HOST_PORT:8888
     volumes:
