@@ -3,7 +3,7 @@ services:
   nextflow:
     image: bentsherman/nextflow-api
     env:
-      - NXF_EXECUTOR="k8s"
+      - NXF_EXECUTOR:"k8s"
     entrypoint:
       - /bin/bash
       - -c
