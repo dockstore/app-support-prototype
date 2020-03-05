@@ -4,7 +4,7 @@
 # If running via tycho from CommonsShare AppStore, tycho will set the variable.
 version: "3"
 services:
-  jupyter-datascience:
+  jupyter-ds:
     image: jupyter/datascience-notebook
     entrypoint:
       - /bin/bash
