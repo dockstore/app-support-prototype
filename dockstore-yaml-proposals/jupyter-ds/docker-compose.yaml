@@ -11,7 +11,7 @@ services:
       - -c
       - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX}
     ports:
-      - $HOST_PORT:8888
+      - 8888:8888
     volumes:
       - TYCHO_NFS/cloud-top:/mydata
     deploy:
