@@ -9,7 +9,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - start.sh jupyter lab --LabApp.token= --ip="*"
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX}
     ports:
       - 8888:8888
     volumes:
