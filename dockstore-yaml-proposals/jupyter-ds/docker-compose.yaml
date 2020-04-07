@@ -13,7 +13,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - TYCHO_NFS/cloud-top:/mydata
+      - pvc://cloud-top/projects:/mydata
     deploy:
       resources:
         limits:
