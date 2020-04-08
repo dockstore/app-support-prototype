@@ -13,7 +13,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - pvc://cloud-top/projects:/mydata
+      - pvc://cloud-top:/mydata
     deploy:
       resources:
         limits:
