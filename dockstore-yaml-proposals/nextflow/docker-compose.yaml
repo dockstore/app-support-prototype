@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   nextflow:
-    image: bentsherman/nextflow-api
+    image: bentsherman/nextflow-gke
     env:
       - NXF_EXECUTOR=k8s
     entrypoint:
