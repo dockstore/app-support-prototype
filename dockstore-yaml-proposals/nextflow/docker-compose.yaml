@@ -7,7 +7,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - while true; do date; sleep 5; done
+      - bin/server.py
     ports:
       - $HOST_PORT:8080
     volumes:
