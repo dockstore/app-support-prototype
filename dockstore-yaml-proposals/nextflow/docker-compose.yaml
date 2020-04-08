@@ -7,7 +7,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - scripts/db-startup.sh
+      - while true; do date; sleep 5; done
     ports:
       - $HOST_PORT:8080
     volumes:
