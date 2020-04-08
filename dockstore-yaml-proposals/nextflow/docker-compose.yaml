@@ -12,7 +12,7 @@ services:
       - $HOST_PORT:8080
     volumes:
       - pvc://cloud-top/projects:/workspace
-      - TYCHO_NFS/deepgtex-prp:/workspace
+      #- TYCHO_NFS/deepgtex-prp:/workspace
     deploy:
       resources:
         limits:
