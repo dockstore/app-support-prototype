@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - pvc://cloud-top/projects:/work/data
+      - pvc://cloud-top:/work/data
     deploy:
       resources:
         limits:
