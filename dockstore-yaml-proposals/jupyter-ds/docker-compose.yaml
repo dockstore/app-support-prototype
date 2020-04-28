@@ -14,8 +14,6 @@ services:
       - 8888:8888
     volumes:
       - pvc://cloud-top:/mydata
-      - pvc://cloud-top-test:/my
-      - pvc://cloud-top-test:/my2
     deploy:
       resources:
         limits:
