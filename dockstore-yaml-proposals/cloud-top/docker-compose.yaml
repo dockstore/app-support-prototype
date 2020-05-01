@@ -6,8 +6,8 @@ services:
       container_name: cloudtop
       environment:
       volumes:
-         - TYCHO_NFS/cloud-top:/usr/local/renci/data
-         - TYCHO_NFS/cloud-top:/mounts
+         - pvc://cloud-top:/usr/local/renci/data
+         - pvc://cloud-top:/mounts
       entrypoint: ["bash", "-c", "python /files/sed.py && /init"]
       ports: 
          - 8080:8080
@@ -31,7 +31,7 @@ services:
       image: ohif/viewer:v1.1.14.3708
       container_name: viewer
       volumes:
-         - TYCHO_NFS/cloud-top:/mounts
+         - pvc://cloud-top:/mounts
       environment:
          - MONGO_URL=mongodb://mongo:27017/ohif
          - APP_CONFIG=/mounts/app-config.js
@@ -49,7 +49,7 @@ services:
          - postgres
       entrypoint: ["bash", "-c", "sleep 5 && cp /mounts/orthanc.json /etc/orthanc/orthanc.json && Orthanc /etc/orthanc"]
       volumes:
-         - TYCHO_NFS/cloud-top:/mounts
+         - pvc://cloud-top:/mounts
       ports:
          - "8042:8042"
          - "4242:4242"
@@ -62,13 +62,13 @@ services:
       ports:
          - "27017:27017"
       volumes:
-        - TYCHO_NFS/cloud-top:/data/
+        - pvc://cloud-top:/data/
 
    postgres:
       image: heliumdatastage/postgres:stage
       container_name: postgres
       volumes:
-        - TYCHO_NFS/cloud-top:/var/lib/postgresql
+        - pvc://cloud-top:/var/lib/postgresql
       environment:
         - POSTGRES_DB=orthanc
         - POSTGRES_USER=postgres
