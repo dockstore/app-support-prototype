@@ -4,7 +4,7 @@
 # If running via tycho from HeLx AppStore, tycho will set the variable.
 version: "3"
 services:
-  jupyter-ds:
+  jupyter:
     image: blackbalsam/jupyter-spark:0.0.8
     entrypoint:
       - /bin/bash
