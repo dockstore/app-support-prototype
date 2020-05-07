@@ -1,6 +1,6 @@
 version: "3.6"
 services:
-  imagej:
+  napari:
     image: heliumdatastage/cloudtop-napari:latest
     container_name: napari
     entrypoint: /init
