@@ -1,18 +1,18 @@
 version: "3.6"
 services:
   imagej:
-    image: heliumdatastage/cloudtop-imagej-napari:latest
+    image: heliumdatastage/cloudtop-imagej:latest
     container_name: imagej
     entrypoint: /init
     ports:
       - 8080:8080
     volumes:
-      - pvc://cloud-top:/usr/local/renci/data
+      - pvc://cloud-top:/data
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 8000M
+          cpus: '4'
+          memory: 16000M
         reservations:
-          cpus: '2'
-          memory: 8000M
+          cpus: '4'
+          memory: 16000M

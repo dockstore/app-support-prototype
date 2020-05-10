@@ -1,8 +1,8 @@
 version: "3.6"
 services:
-  imagej:
-    image: heliumdatastage/cloudtop-imagej-napari:latest
-    container_name: imagej
+  napari:
+    image: heliumdatastage/cloudtop-napari:latest
+    container_name: napari
     entrypoint: /init
     ports:
       - 8080:8080
