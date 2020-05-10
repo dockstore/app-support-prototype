@@ -14,8 +14,8 @@ services:
       - JUPYTER_ENABLE_LAB=yes
     ports:
       - 10000:8888
-    volumes:
-      - pvc://stdnfs:/home/jovyan/work 
+#    volumes:
+#      - pvc://stdnfs:/home/jovyan/work 
     deploy:
       resources:
         limits:
