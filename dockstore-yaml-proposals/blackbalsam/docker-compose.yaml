@@ -6,19 +6,19 @@ version: "3"
 services:
   jupyter:
     image: blackbalsam/jupyter-spark:0.0.8
-    entrypoint:
-      - /bin/bash
-      - -c
-      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
+#    entrypoint:
+#      - /bin/bash
+#      - -c
+#      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
     ports:
       - 8888:8888
-    volumes:
-      - pvc://stdnfs:/home/shared
+#    volumes:
+#      - pvc://stdnfs:/home/shared
     deploy:
       resources:
         limits:
-          cpus: '0.10'
-          memory: 1000M
+          cpus: '2'
+          memory: 5G
         reservations:
-          cpus: '0.10'
-          memory: 1000M
+          cpus: '1'
+          memory: 5G
