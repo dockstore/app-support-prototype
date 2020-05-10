@@ -4,7 +4,7 @@
 # If running via tycho from CommonsShare AppStore, tycho will set the variable.
 version: "3.0"
 services:
-  jupyter-ds:
+  rshiny:
     image: rocker/shiny:3.4.4
     ports:
       - 3838:3838
