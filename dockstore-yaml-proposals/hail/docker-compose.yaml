@@ -4,7 +4,7 @@ services:
   hail:
     image: heliumdatastage/helx-hail:latest
     ports:
-      - ${HOST_PORT}:8000
+      - 8000:8000
     deploy:
       resources:
         limits:
