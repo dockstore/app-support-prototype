@@ -11,8 +11,8 @@ services:
       deploy:
         resources:
           limits:
-            cpus: '0.60'
+            cpus: '2'
             memory: 12G
           reservations:
-            cpus: '0.60'
+            cpus: '2'
             memory: 12G
