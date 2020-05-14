@@ -13,8 +13,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 8000M
+          cpus: '4'
+          memory: 16000M
         reservations:
-          cpus: '2'
-          memory: 8000M
+          cpus: '4'
+          memory: 16000M
