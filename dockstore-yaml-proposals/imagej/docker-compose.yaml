@@ -3,6 +3,8 @@ services:
   imagej:
     image: heliumdatastage/cloudtop-imagej:latest
     container_name: imagej
+    env:
+     - VNC_RESOLUTION=1980x1024 
     entrypoint: /init
     ports:
       - 8080:8080
