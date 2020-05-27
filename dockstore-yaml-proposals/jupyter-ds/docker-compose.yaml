@@ -12,8 +12,9 @@ services:
       - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
     ports:
       - 8888:8888
-#    volumes:
-#      - pvc://cloud-top:/mydata
+    volumes:
+      - pvc://cloud-top/mydata:/mydata
+      - pvc://cloud-top/nodata:/nodata
     deploy:
       resources:
         limits:
