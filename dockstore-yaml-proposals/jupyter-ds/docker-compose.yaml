@@ -13,8 +13,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - pvc://stdnfs/mydata:/mydata
-      - pvc://stdnfs/nodata:/nodata
+      - pvc://cloud-top/mydata:/mydata
     deploy:
       resources:
         limits:
