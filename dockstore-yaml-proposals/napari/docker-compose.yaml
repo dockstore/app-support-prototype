@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - pvc://cloud-top:/usr/local/renci/data
+      - pvc://nfsrods:/nfsrods
     deploy:
       resources:
         limits:
