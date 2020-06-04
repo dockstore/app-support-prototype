@@ -1,9 +1,9 @@
 version: '3.6'
 services:
 
-   cloudtop:
+   cloud-top:
       image: heliumdatastage/cloudtop:latest
-      container_name: cloudtop
+      container_name: cloud-top
       environment:
       entrypoint: ["init"]
       ports: 
