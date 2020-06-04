@@ -5,7 +5,7 @@ services:
       image: heliumdatastage/cloudtop:latest
       container_name: cloud-top
       environment:
-      entrypoint: ["init"]
+      entrypoint: /init
       ports: 
         - 8080:8080
       deploy:
