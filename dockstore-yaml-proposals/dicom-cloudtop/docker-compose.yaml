@@ -42,6 +42,14 @@ services:
          - orthanc
       expose:
          - "80"
+      deploy:
+        resources:
+          limits:
+            cpus: '0.20'
+            memory: 1000M
+          reservations:
+            cpus: '0.20'
+            memory: 1000M
 
    orthanc:
       image: jodogne/orthanc-plugins:latest
@@ -56,6 +64,14 @@ services:
          - "4242"
       securityContext:
           privileged: true
+      deploy:
+        resources:
+          limits:
+            cpus: '0.20'
+            memory: 1000M
+          reservations:
+            cpus: '0.20'
+            memory: 1000M
 
    mongo:
       image: mongo:latest
@@ -64,6 +80,14 @@ services:
          - "27017"
       volumes:
         - pvc://cloud-top:/data/
+      deploy:
+        resources:
+          limits:
+            cpus: '0.20'
+            memory: 1000M
+          reservations:
+            cpus: '0.20'
+            memory: 1000M
 
    postgres:
       image: heliumdatastage/postgres:stage
@@ -78,3 +102,11 @@ services:
          - "5432"
       securityContext:
           privileged: true
+      deploy:
+        resources:
+          limits:
+            cpus: '0.20'
+            memory: 1000M
+          reservations:
+            cpus: '0.20'
+            memory: 1000M 
