@@ -10,8 +10,8 @@ services:
       - ./scripts/db-startup.sh && cd /opt/nextflow-api; python3 bin/server.py --db-hostname=0.0.0.0
     ports:
       - $HOST_PORT:8080
-    #volumes:
-    #  - pvc://deepgtex-prp:/workspace
+    volumes:
+      - pvc://stdnfs/workspace:/workspace
     deploy:
       resources:
         limits:
