@@ -11,7 +11,7 @@ services:
     ports:
       - $HOST_PORT:8080
     volumes:
-      - pvc://stdnfs/workspace:/workspace
+      - pvc://stdnfs:/workspace
     deploy:
       resources:
         limits:
