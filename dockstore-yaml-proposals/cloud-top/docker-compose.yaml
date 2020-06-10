@@ -12,7 +12,7 @@ services:
         resources:
           limits:
             cpus: '2'
-            memory: 12G
+            memory: 4G
           reservations:
             cpus: '2'
-            memory: 12G
+            memory: 4G
