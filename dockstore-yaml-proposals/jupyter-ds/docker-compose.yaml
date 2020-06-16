@@ -14,7 +14,6 @@ services:
       - 8888:8888
     volumes:
       - pvc://cloud-top/mydata:/mydata
-      - pvc://stdnfs/restartr:/var/nfs/restartr
     deploy:
       resources:
         limits:
