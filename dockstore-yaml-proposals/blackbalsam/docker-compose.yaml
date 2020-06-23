@@ -6,7 +6,7 @@ version: "3"
 services:
   blackbalsam:
     #image: blackbalsam/jupyter-spark:0.0.8
-    image: heliumdatastage/blackbalsam:v0.0.1
+    image: heliumdatastage/blackbalsam:v0.0.2
     entrypoint:
       - /bin/bash
       - -c
@@ -20,8 +20,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 5G
+          cpus: '1'
+          memory: 1G
         reservations:
           cpus: '1'
-          memory: 5G
+          memory: 1G
