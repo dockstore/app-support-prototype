@@ -3,7 +3,7 @@
 version: "3"
 services:
   rstudio-server:
-    image: heliumdatastage/rstudio-server:cca-v0.0.1
+    image: heliumdatastage/rstudio-server:tycho
     entrypoint:
       - /bin/bash
       - -c
