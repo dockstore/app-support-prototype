@@ -4,10 +4,6 @@ version: "3"
 services:
   rstudio-server:
     image: heliumdatastage/rstudio-server:tycho
-    entrypoint:
-      - /bin/bash
-      - -c
-      - /usr/lib/rstudio-server/bin/rserver --server-daemonize=0 --auth-none=1
     environment:
       - DISABLE_AUTH=true
     ports:
@@ -16,7 +12,7 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 150Mi
+          memory: 400Mi
         reservations:
           cpus: '0.5'
-          memory: 150Mi
+          memory: 400Mi
