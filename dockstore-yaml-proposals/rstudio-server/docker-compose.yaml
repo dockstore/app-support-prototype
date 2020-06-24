@@ -3,7 +3,7 @@
 version: "3"
 services:
   rstudio-server:
-    image: heliumdatastage/rstudio-server:cca-v0.0.2
+    image: heliumdatastage/rstudio-server:cca-v0.0.3
     environment:
       - DISABLE_AUTH=true
     ports:
