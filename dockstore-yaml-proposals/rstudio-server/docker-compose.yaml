@@ -3,8 +3,7 @@
 version: "3"
 services:
   rstudio-server:
-    image: heliumdatastage/rstudio-server:all-v0.0.3
-    entrypoint: ["/bin/bash","-c","/usr/lib/rstudio-server/bin/rserver","--auth-none=1"]
+    image: heliumdatastage/rstudio-server:all-v0.0.5
     environment:
       - DISABLE_AUTH=true
     ports:
@@ -13,7 +12,7 @@ services:
       resources:
         limits:
           cpus: '0.50'
-          memory: 1000M
+          memory: 800M
         reservations:
           cpus: '0.5'
-          memory: 1000M
+          memory: 800M
