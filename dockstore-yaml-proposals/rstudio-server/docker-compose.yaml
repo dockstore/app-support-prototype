@@ -6,8 +6,6 @@ services:
     image: heliumdatastage/rstudio-server:all-v0.0.5
     environment:
       - DISABLE_AUTH=true
-      - USERID=1012131234
-      - GROUPID=1012131234
     ports:
       - 8787:8787
     deploy:
