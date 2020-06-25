@@ -4,7 +4,7 @@ version: "3"
 services:
   rstudio-server:
     image: heliumdatastage/rstudio-server:all-v0.0.3
-    entrypoint: ["/bin/bash","-c","/usr/lib/rstudio-server/bin/rserver","--server-daemonize=0","--auth-none=1"]
+    entrypoint: ["/bin/bash","-c","/usr/lib/rstudio-server/bin/rserver","--auth-none=1"]
     environment:
       - DISABLE_AUTH=true
     ports:
