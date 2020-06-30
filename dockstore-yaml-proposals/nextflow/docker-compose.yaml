@@ -1,13 +1,13 @@
 version: "3.0"
 services:
   nextflow:
-    image: cbmckni/nextflow-api:latest
+    image: cbmckni/nextflow-api:relative
     env:
       - NXF_EXECUTOR=k8s
     entrypoint:
       - /bin/bash
       - -c
-      - ./scripts/db-startup.sh && cd /opt/nextflow-api; python3 bin/server.py --db-hostname=0.0.0.0
+      - ./scripts/db-startup.sh && cd /opt/nextflow-api; python3 bin/server.py
     ports:
       - $HOST_PORT:8080
     volumes:
