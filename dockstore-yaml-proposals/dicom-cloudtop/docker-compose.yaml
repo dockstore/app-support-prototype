@@ -29,7 +29,7 @@ services:
    #   entrypoint: /bin/bash /init-pg.sh
 
    viewer:
-      image: ohif/viewer:v1.1.14.3708
+      image: heliumdatastage/ohif-nginx:v0.0.1 #ohif/viewer:v1.1.14.3708
       container_name: viewer
       volumes:
          - pvc://cloud-top:/mounts
@@ -52,7 +52,7 @@ services:
             memory: 1000M
 
    orthanc:
-      image: jodogne/orthanc-plugins:latest
+      image: heliumdatastage/orthanc:v0.0.1 #jodogne/orthanc-plugins:latest
       container_name: orthanc
       depends_on:
          - postgres
