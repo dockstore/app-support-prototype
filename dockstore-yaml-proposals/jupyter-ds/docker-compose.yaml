@@ -14,7 +14,7 @@ services:
       - 8888:8888
     volumes:
       - pvc://cloud-top/mydata:/mydata
-      - pvc://helx-sidecar-test/bucket-data:/bucket-data
+      - pvc://helx-sidecar-test/sidecar:/sidecar
     deploy:
       resources:
         limits:
