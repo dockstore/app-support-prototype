@@ -6,8 +6,7 @@ services:
       container_name: dicom-cloudtop
       environment:
       volumes:
-         - pvc://cloud-top:/usr/local/renci/data
-         - pvc://cloud-top:/mounts
+         - pvc://helx-sidecar-test/sidecar:/sidecar
       entrypoint: ["bash", "-c", "/init"]
       ports: 
          - 8080:8080
@@ -32,7 +31,7 @@ services:
       image: heliumdatastage/ohif-nginx:v0.0.1 #ohif/viewer:v1.1.14.3708
       container_name: viewer
       volumes:
-         - pvc://cloud-top:/mounts
+         - pvc://helx-sidecar-test/sidecar:/sidecar
       environment:
          - MONGO_URL=mongodb://mongo:27017/ohif
          - APP_CONFIG=/mounts/app-config.js
@@ -58,7 +57,7 @@ services:
          - postgres
       entrypoint: ["bash", "-c", "sleep 5 && Orthanc /etc/orthanc"]
       volumes:
-         - pvc://cloud-top:/mounts
+         - pvc://helx-sidecar-test/sidecar:/sidecar
       expose:
          - "8042"
          - "4242"
@@ -79,7 +78,7 @@ services:
       expose:
          - "27017"
       volumes:
-        - pvc://cloud-top:/data/
+        - pvc://helx-sidecar-test/sidecar:/sidecar
       deploy:
         resources:
           limits:
@@ -94,6 +93,7 @@ services:
       container_name: postgres
       volumes:
         - pvc://cloud-top:/var/lib/postgresql
+        - pvc://helx-sidecar-test/sidecar:/sidecar
       environment:
         - POSTGRES_DB=orthanc
         - POSTGRES_USER=postgres
