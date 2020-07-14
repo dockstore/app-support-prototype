@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
    cloud-top:
-      image: heliumdatastage/cloudtop:latest
+      image: heliumdatastage/cloudtop:develop-latest
       container_name: cloud-top
       environment:
       entrypoint: /init
