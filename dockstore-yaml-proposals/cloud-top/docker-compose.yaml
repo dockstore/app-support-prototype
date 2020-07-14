@@ -8,6 +8,8 @@ services:
       entrypoint: /init
       ports: 
         - 8080:8080
+      volumes:
+         - pvc://helx-sidecar-test/sidecar:/sidecar
       deploy:
         resources:
           limits:
