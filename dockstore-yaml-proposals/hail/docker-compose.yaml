@@ -5,6 +5,10 @@ services:
     image: heliumdatastage/helx-hail:latest
     ports:
       - 8000:8000
+    entrypoint:
+      - /bin/bash
+      - -c
+      - start.sh jupyter lab --LabApp.token= --ip="*" --port=8000 --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
     deploy:
       resources:
         limits:
