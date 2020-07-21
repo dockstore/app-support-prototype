@@ -9,7 +9,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*" -e NB_USER=rods
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*" --Session.username="rods"
     ports:
       - 8888:8888
     deploy:
