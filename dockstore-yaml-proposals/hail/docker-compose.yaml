@@ -9,6 +9,8 @@ services:
       - /bin/bash
       - -c
       - /entrypoint.sh
+    volumes:
+         - pvc://helx-sidecar-test/sidecar:/sidecar
     deploy:
       resources:
         limits:
