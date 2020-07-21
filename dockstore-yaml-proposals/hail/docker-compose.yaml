@@ -10,7 +10,7 @@ services:
       - -c
       - /entrypoint.sh
     volumes:
-         - pvc://helx-sidecar-test/sidecar:/sidecar
+      - pvc://helx-sidecar-test/sidecar:/sidecar
     deploy:
       resources:
         limits:
