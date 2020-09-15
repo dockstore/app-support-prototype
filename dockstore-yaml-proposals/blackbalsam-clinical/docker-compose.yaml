@@ -6,7 +6,7 @@ version: "3"
 services:
   blackbalsam-clinical:
     #image: blackbalsam/jupyter-spark:0.0.8
-    image: heliumdatastage/blackbalsam-clinical:master-v0.0.6
+    image: heliumdatastage/blackbalsam-clinical:master-v0.0.7
     entrypoint:
       - /bin/bash
       - -c
