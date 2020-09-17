@@ -4,7 +4,6 @@ services:
    dicom-gh:
       image: heliumdatastage/cloudtop-ohif:develop-latest
       container_name: dicom-gh
-      environment:
       entrypoint: /init
       ports: 
         - 8080:8080
