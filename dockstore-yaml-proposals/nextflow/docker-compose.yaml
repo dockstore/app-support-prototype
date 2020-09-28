@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   nextflow:
-    image: heliumdatastage/nextflow-api:relative-v0.3
+    image: cbmckni/nextflow-api:latest
     env:
       - NXF_EXECUTOR=k8s
     entrypoint:
