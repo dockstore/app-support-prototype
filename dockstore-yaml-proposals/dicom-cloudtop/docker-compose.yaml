@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
    dicom-cloudtop:
-      image: heliumdatastage/cloudtop:develop-latest
+      image: heliumdatastage/cloudtop:develop-v0.0.16
       container_name: dicom-cloudtop
       volumes:
          - pvc://helx-sidecar-test/sidecar:/sidecar
