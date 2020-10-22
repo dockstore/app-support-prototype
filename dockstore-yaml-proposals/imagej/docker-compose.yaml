@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   imagej:
-    image: heliumdatastage/cloudtop-imagej:develop-v0.0.11
+    image: heliumdatastage/cloudtop-imagej:develop-v0.0.18
     container_name: imagej
     env:
      - VNC_RESOLUTION=1980x1024 
