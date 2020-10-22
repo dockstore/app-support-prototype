@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
    dicom-gh:
-      image: heliumdatastage/cloudtop-ohif:develop-latest
+      image: heliumdatastage/cloudtop-ohif:develop-v0.0.13
       container_name: dicom-gh
       entrypoint: /init
       ports: 
