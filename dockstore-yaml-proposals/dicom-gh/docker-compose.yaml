@@ -2,10 +2,10 @@ version: '3.6'
 services:
 
    dicom-gh:
-      image: heliumdatastage/cloudtop-ohif:develop-v0.0.13
+      image: heliumdatastage/cloudtop-ohif:develop-v0.0.16
       container_name: dicom-gh
       entrypoint: /init
-      ports: 
+      ports:
         - 8080:8080
       volumes:
          - pvc://helx-sidecar-test/sidecar:/sidecar

@@ -2,10 +2,10 @@ version: '3.6'
 services:
 
    cloud-top:
-      image: heliumdatastage/cloudtop:develop-v0.0.22
+      image: heliumdatastage/cloudtop:develop-v0.0.24
       container_name: cloud-top
       entrypoint: /init
-      ports: 
+      ports:
         - 8080:8080
       volumes:
          - pvc://helx-sidecar-test/sidecar:/sidecar

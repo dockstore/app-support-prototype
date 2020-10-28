@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   napari:
-    image: heliumdatastage/cloudtop-napari:develop-v0.0.17
+    image: heliumdatastage/cloudtop-napari:develop-v0.0.19
     container_name: napari
     entrypoint: /init
     ports:

@@ -2,12 +2,12 @@ version: '3.6'
 services:
 
    dicom-cloudtop:
-      image: heliumdatastage/cloudtop:develop-latest
+      image: heliumdatastage/cloudtop:develop-v0.0.24
       container_name: dicom-cloudtop
       volumes:
          - pvc://helx-sidecar-test/sidecar:/sidecar
       entrypoint: ["bash", "-c", "/init"]
-      ports: 
+      ports:
          - 8080:8080
          - 8081:8081
       deploy:
@@ -18,7 +18,7 @@ services:
           reservations:
             cpus: '0.60'
             memory: 5000M
-   
+
    #loadortha:
    #   image: heliumdatastage/loadortha:6
    #   container_name: loadortha
@@ -108,4 +108,4 @@ services:
             memory: 1000M
           reservations:
             cpus: '0.20'
-            memory: 1000M 
+            memory: 1000M
