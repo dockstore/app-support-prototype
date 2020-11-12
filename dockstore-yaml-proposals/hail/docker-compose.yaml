@@ -2,7 +2,7 @@
 version: "3"
 services:
   hail:
-    image: heliumdatastage/helx-hail:v0.0.2
+    image: heliumdatastage/helx-hail:v0.0.3
     ports:
       - 8000:8000
     entrypoint:
