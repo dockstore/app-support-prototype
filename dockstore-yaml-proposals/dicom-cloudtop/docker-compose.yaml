@@ -4,8 +4,6 @@ services:
    dicom-cloudtop:
       image: ohif/viewer:latest
       container_name: dicom-cloudtop
-      ports:
-         - 3000:8081
       deploy:
         resources:
           limits:
