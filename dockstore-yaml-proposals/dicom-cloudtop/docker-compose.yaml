@@ -2,14 +2,10 @@ version: '3.6'
 services:
 
    dicom-cloudtop:
-      image: heliumdatastage/cloudtop:develop-v0.0.25
+      image: ohif/viewer:latest
       container_name: dicom-cloudtop
-      volumes:
-         - pvc://helx-sidecar-test/sidecar:/sidecar
-      entrypoint: ["bash", "-c", "/init"]
       ports:
-         - 8080:8080
-         - 8081:8081
+         - 3000:80
       deploy:
         resources:
           limits:
@@ -18,94 +14,3 @@ services:
           reservations:
             cpus: '0.60'
             memory: 5000M
-
-   #loadortha:
-   #   image: heliumdatastage/loadortha:6
-   #   container_name: loadortha
-   #   volumes:
-   #      - TYCHO_NFS/cloud-top:/user/local/renci/data
-   #   entrypoint: /bin/bash /init-pg.sh
-
-   viewer:
-      image: heliumdatastage/ohif-nginx:v0.0.1 #ohif/viewer:v1.1.14.3708
-      container_name: viewer
-      volumes:
-         - pvc://helx-sidecar-test/sidecar:/sidecar
-      environment:
-         - MONGO_URL=mongodb://mongo:27017/ohif
-         - APP_CONFIG=/mounts/app-config.js
-      entrypoint: ["bash", "-c", "sleep 5 && /usr/src/entrypoint.sh nginx -g 'daemon off;'"]
-      depends_on:
-         - mongo
-         - orthanc
-      expose:
-         - "80"
-      deploy:
-        resources:
-          limits:
-            cpus: '0.20'
-            memory: 1000M
-          reservations:
-            cpus: '0.20'
-            memory: 1000M
-
-   orthanc:
-      image: heliumdatastage/orthanc:v0.0.1 #jodogne/orthanc-plugins:latest
-      container_name: orthanc
-      depends_on:
-         - postgres
-      entrypoint: ["bash", "-c", "sleep 5 && Orthanc /etc/orthanc"]
-      volumes:
-         - pvc://helx-sidecar-test/sidecar:/sidecar
-      expose:
-         - "8042"
-         - "4242"
-      securityContext:
-          privileged: true
-      deploy:
-        resources:
-          limits:
-            cpus: '0.20'
-            memory: 1000M
-          reservations:
-            cpus: '0.20'
-            memory: 1000M
-
-   mongo:
-      image: mongo:latest
-      container_name: mongo
-      expose:
-         - "27017"
-      volumes:
-        - pvc://helx-sidecar-test/sidecar:/sidecar
-      deploy:
-        resources:
-          limits:
-            cpus: '0.20'
-            memory: 1000M
-          reservations:
-            cpus: '0.20'
-            memory: 1000M
-
-   postgres:
-      image: heliumdatastage/postgres:stage
-      container_name: postgres
-      volumes:
-        - pvc://cloud-top:/var/lib/postgresql
-        - pvc://helx-sidecar-test/sidecar:/sidecar
-      environment:
-        - POSTGRES_DB=orthanc
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres-orthanc
-      expose:
-         - "5432"
-      securityContext:
-          privileged: true
-      deploy:
-        resources:
-          limits:
-            cpus: '0.20'
-            memory: 1000M
-          reservations:
-            cpus: '0.20'
-            memory: 1000M
