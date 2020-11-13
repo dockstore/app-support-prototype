@@ -1,0 +1,18 @@
+version: "3.6"
+services:
+  napari:
+    image: heliumdatastage/cloudtop-napari:develop-v0.0.21
+    container_name: napari
+    entrypoint: /init
+    ports:
+      - 8080:8080
+    volumes:
+      - pvc://nfsrods:/nfsrods
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 8000M
+        reservations:
+          cpus: '2'
+          memory: 8000M

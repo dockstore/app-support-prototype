@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  imagej:
+    image: heliumdatastage/cloudtop-imagej:develop-v0.0.22
+    container_name: imagej
+    env:
+     - VNC_RESOLUTION=1980x1024
+    entrypoint: /init
+    ports:
+      - 8080:8080
+    volumes:
+      - pvc://cloud-top:/data
+      - pvc://nfsrods:/nfsrods
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 4000M
+        reservations:
+          cpus: '.5'
+          memory: 2000M

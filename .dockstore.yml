@@ -1,0 +1,14 @@
+# We introduced a .dockstore.yml for posting a zip with version 1.0 Bump this to version: 1.1
+version 1.1
+# Other classes will eventually be workflow and tool
+class: service
+# A hint as to the service packaging. An enumerated type, with these values, for now: docker-compose, swarm, kubernetes, helm
+subclass: docker-compose
+# Location relative to the root of the repo; can be a string or an array of strings. Strings can be references to files and/or directories
+location: docker-compose.yml
+# Location relative to the root of the repo, can be a string or an array of strings, which can be references to files and/or directories. See next section.
+testFilePath: testFile.json
+# An optional description point to a file
+description: README.md
+# A hint for any consumers trying to run the service. This is one example and not comprehensive. For example, parameters might be also need to passed
+sample-command: docker-compose up

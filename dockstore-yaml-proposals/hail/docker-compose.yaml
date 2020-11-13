@@ -1,0 +1,21 @@
+# Docker compose formatted system.
+version: "3"
+services:
+  hail:
+    image: heliumdatastage/helx-hail:v0.0.3
+    ports:
+      - 8000:8000
+    entrypoint:
+      - /bin/bash
+      - -c
+      - /entrypoint.sh
+    volumes:
+      - pvc://helx-sidecar-test/sidecar:/sidecar
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '1'
+          memory: 1G
