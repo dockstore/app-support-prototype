@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
    dicom-cloudtop:
-      image: muralikarthikk/viewer:test-v0.1
+      image: heliumdatastage/ohif-native:latest
       container_name: dicom-cloudtop
       ports:
         - 3000:80
