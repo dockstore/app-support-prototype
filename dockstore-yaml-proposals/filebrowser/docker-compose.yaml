@@ -8,5 +8,4 @@ services:
       - 8080:8080
     volumes:
     environment:
-      - FB_BASEURL=/filebrowser
     restart: always
