@@ -5,5 +5,5 @@ services:
     container_name: ${FILEBROWSER_NAME:-filebrowser}
     command: 
     ports:
-    - 8080:8080
+    - 8080:80
     volumes:
