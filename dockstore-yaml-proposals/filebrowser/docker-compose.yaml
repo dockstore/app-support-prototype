@@ -7,4 +7,4 @@ services:
   entrypoint:
    - /bin/sh
    - -c
-   - /filebrowser config init &&  /filebrowser config set --auth.method=noauth && /filebrowser --auth.method=noauth --root="/home" --address=0.0.0.0 --database=/config/filebrowser.db
+   - /filebrowser config init &&  /filebrowser config set --auth.method=noauth && /filebrowser --noauth --root="/home" --address=0.0.0.0 --database=/config/filebrowser.db
