@@ -1,9 +1,10 @@
-version: '3'
+version: "3"
 services:
-  filebrowser:
-    image: filebrowser/filebrowser:latest
-    container_name: ${FILEBROWSER_NAME:-filebrowser}
-    command: 
-    ports:
-    - 8080:8080
-    volumes:
+ filebrowser:
+  image: hurlenko/filebrowser
+  ports:
+   - 8080:8080
+  entrypoint:
+   - /bin/sh
+   - -c
+   - /filebrowser config set --auth.method=noauth --root="/home" --address=0.0.0.0 --database=/config/filebrowser.db
