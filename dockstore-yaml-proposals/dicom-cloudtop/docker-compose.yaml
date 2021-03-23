@@ -2,7 +2,7 @@ version: '3.6'
 services:
 
    dicom-cloudtop:
-      image: muralikarthikk/try-ohif:0.0.10
+      image: ohif/viewer:latest
       container_name: dicom-cloudtop
       ports:
         - 3000:80
