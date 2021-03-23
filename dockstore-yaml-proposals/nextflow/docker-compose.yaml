@@ -2,7 +2,7 @@ version: "3.0"
 services:
   nextflow:
     image: cbmckni/nextflow-api:latest
-    env:
+    environment:
       - NXF_EXECUTOR=k8s
     entrypoint:
       - /bin/bash
