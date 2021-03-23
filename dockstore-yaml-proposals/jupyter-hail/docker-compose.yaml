@@ -45,7 +45,7 @@ services:
   # A non-root container for JupyterLab.
   #   A multi-stage Docker build takes Java and Python from bitnami containers.
   #   A version of Spark compatible with Hail is installed.
-  #   It instegrates Hail into Spark and Spark into Jupyter.
+  #   It integrates Hail into Spark and Spark into Jupyter.
   jupyter:
     image: heliumdatastage/jupyter-hail:latest
     ports:
