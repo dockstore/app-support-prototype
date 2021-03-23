@@ -8,3 +8,11 @@ services:
     - "${HTTP_PORT:-3000}:3000"
     volumes:
     - ./data:/jbrowse/data
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 

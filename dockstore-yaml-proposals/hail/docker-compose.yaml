@@ -13,9 +13,12 @@ services:
       - pvc://helx-sidecar-test/sidecar:/sidecar
     deploy:
       resources:
+        # keep the limit low as most of the orchestration occurs outside of
+        # the immediate container context.
         limits:
           cpus: '1'
-          memory: 1G
+          memory: 1000M
         reservations:
           cpus: '1'
-          memory: 1G
+          memory: 1000M 
+

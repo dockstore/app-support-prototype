@@ -14,6 +14,11 @@ services:
       - pvc://stdnfs:/workspace
     deploy:
       resources:
+        # keep the limit low as most of the orchestration occurs outside of
+        # the immediate container context.
         limits:
-          cpus: 1
-          memory: 4Gi
+          cpus: '1'
+          memory: 4000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 
