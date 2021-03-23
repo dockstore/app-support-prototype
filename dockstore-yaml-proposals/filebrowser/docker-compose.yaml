@@ -1,0 +1,10 @@
+version: "3"
+services:
+ filebrowser:
+  image: hurlenko/filebrowser
+  ports:
+   - 8080:8080
+  entrypoint:
+   - /bin/sh
+   - -c
+   - /filebrowser config init &&  /filebrowser config set --auth.method=noauth && /filebrowser --noauth --root="/home" --address=0.0.0.0 --database=/config/filebrowser.db
