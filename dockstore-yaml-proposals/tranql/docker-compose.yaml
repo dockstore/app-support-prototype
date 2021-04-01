@@ -5,6 +5,14 @@ services:
     entrypoint: /usr/local/bin/gunicorn --workers=2 --bind=0.0.0.0:$BACKPLANE_PORT --name=backplane --timeout=600 tranql.backplane.server:app 
     ports:
       - "$BACKPLANE_PORT:$BACKPLANE_PORT"
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 
   tranql:
     image: greentranslator/tranql-app
     environment:
@@ -13,6 +21,14 @@ services:
     entrypoint: /usr/local/bin/gunicorn --workers=2 --bind=0.0.0.0:$APP_PORT --name=tranql --timeout=600 tranql.api:app
     ports:
       - "$APP_PORT:$APP_PORT"
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 
 networks:
   default:
     external:
