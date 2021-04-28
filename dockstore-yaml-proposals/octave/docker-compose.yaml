@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   octave:
-    image: epflsti/octave-x11-novnc-docker:latest 
+    image: helxplatform/cloudtop-octave:develop-latest 
     container_name: octave 
     ports:
       - 8083:8080
