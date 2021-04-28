@@ -1,11 +1,15 @@
 version: "3.6"
 services:
   octave:
-    image: helxplatform/cloudtop-octave:develop-latest 
-    container_name: octave 
+    image: helxplatform/cloudtop-octave:develop-latest
+    container_name: octave
+    env:
+     - VNC_RESOLUTION=1980x1024
+    entrypoint: /init
     ports:
-      - 8080:8083
+      - 8080:8080
     volumes:
+      - pvc://cloud-top:/data
     deploy:
       resources:
         limits:
