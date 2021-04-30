@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   octave:
-    image: helxplatform/cloudtop-octave:ddevelop-0.0.2
+    image: helxplatform/cloudtop-octave:develop-0.0.2
     container_name: octave
     env:
      - VNC_RESOLUTION=1980x1024
