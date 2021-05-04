@@ -1,8 +1,8 @@
 version: "3.6"
 services:
-  imagej:
-    image: helxplatform/cloudtop-imagej:develop-latest
-    container_name: imagej
+  octave:
+    image: helxplatform/cloudtop-octave:develop-0.0.2
+    container_name: octave
     env:
      - VNC_RESOLUTION=1980x1024
     entrypoint: /init
@@ -10,7 +10,6 @@ services:
       - 8080:8080
     volumes:
       - pvc://cloud-top:/data
-      - pvc://nfsrods:/nfsrods
     deploy:
       resources:
         limits:

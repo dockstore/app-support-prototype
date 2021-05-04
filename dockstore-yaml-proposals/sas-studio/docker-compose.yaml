@@ -1,0 +1,16 @@
+---
+# Docker compose formatted system.
+version: "3"
+services:
+  sas-studio:
+    image: heliumdatastage/sas-studio:0.0.2
+    ports:
+      - 38080:38080
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '2'
+          memory: 2000M
