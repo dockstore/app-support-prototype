@@ -1,0 +1,24 @@
+version: "3.0"
+services:
+  nextflow:
+    image: cbmckni/nextflow-api:latest
+    environment:
+      - NXF_EXECUTOR=k8s
+    entrypoint:
+      - /bin/bash
+      - -c
+      - ./scripts/db-startup.sh && cd /opt/nextflow-api; python3 bin/server.py
+    ports:
+      - $HOST_PORT:8080
+    volumes:
+      - pvc://stdnfs:/workspace
+    deploy:
+      resources:
+        # keep the limit low as most of the orchestration occurs outside of
+        # the immediate container context.
+        limits:
+          cpus: '1'
+          memory: 4000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 

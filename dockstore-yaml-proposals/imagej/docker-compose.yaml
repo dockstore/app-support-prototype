@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  imagej:
+    image: helxplatform/cloudtop-imagej:develop-latest
+    container_name: imagej
+    env:
+     - VNC_RESOLUTION=1980x1024
+    entrypoint: /init
+    ports:
+      - 8080:8080
+    volumes:
+      - pvc://cloud-top:/data
+      - pvc://nfsrods:/nfsrods
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 

@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+
+   cloud-top:
+      image: heliumdatastage/cloudtop:develop-v0.0.25
+      container_name: cloud-top
+      entrypoint: /init
+      ports:
+        - 8080:8080
+      volumes:
+         - pvc://helx-sidecar-test/sidecar:/sidecar
+      deploy:
+        resources:
+          limits:
+            cpus: '8'
+            memory: 64000M
+          reservations:
+            cpus: '2'
+            memory: 4000M 

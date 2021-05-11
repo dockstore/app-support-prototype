@@ -1,0 +1,16 @@
+version: '3.6'
+services:
+
+   dicom-cloudtop:
+      image: ohif/viewer:latest
+      container_name: dicom-cloudtop
+      ports:
+        - 3000:80
+      deploy:
+        resources:
+          limits:
+            cpus: '8'
+            memory: 64000M
+          reservations:
+            cpus: '2'
+            memory: 5000M 

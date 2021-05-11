@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+
+   dicom-gh:
+      image: heliumdatastage/cloudtop-ohif:develop-v0.0.18
+      container_name: dicom-gh
+      entrypoint: /init
+      ports:
+        - 8080:8080
+      volumes:
+         - pvc://helx-sidecar-test/sidecar:/sidecar
+      deploy:
+        resources:
+          limits:
+            cpus: '8'
+            memory: 64000M
+          reservations:
+            cpus: '1'
+            memory: 4000M 

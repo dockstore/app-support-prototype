@@ -1,0 +1,29 @@
+---
+# Docker compose formatted system.
+# NOTE: NB_PREFIX has to be set to "/" as an environment variable if running locally. 
+# If running via tycho from HeLx AppStore, tycho will set the variable.
+version: "3"
+services:
+  blackbalsam:
+    #image: blackbalsam/jupyter-spark:0.0.8
+    image: heliumdatastage/blackbalsam:py3.7-v0.0.15
+    entrypoint:
+      - /bin/bash
+      - -c
+#      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
+      - start.sh jupyter notebook --NotebookApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
+      
+    ports:
+      - 8888:8888
+#    volumes:
+#      - pvc://stdnfs:/home/shared
+    deploy:
+      resources:
+        # keep the limit low as most of the orchestration occurs outside of
+        # the immediate container context.
+        limits:
+          cpus: '1'
+          memory: 1000M
+        reservations:
+          cpus: '1'
+          memory: 1000M 

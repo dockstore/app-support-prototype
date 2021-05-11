@@ -1,0 +1,18 @@
+---
+# Docker compose formatted system.
+version: "3"
+services:
+  rstudio-server:
+    image: heliumdatastage/rstudio-server:init-v0.4
+    environment:
+      - DISABLE_AUTH=true
+    ports:
+      - 8787:8787
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 1000M 

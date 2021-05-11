@@ -1,0 +1,110 @@
+version: '3.0'
+
+##################################################################################################
+#
+# This is a Jupyter Lab Hail workspace.
+#   The JupyterLab[1] notebook computing environment serves as a front end.
+#   Hail[2] provides scalable genomic data tools.
+#   It is an extension to the Apache Spark[3] analytics cluster system.
+#   Metadata for defining the system uses the Docker-Compose version 3.0 format.
+#
+# The workspace supports the following configuration options:
+#   cluster_worker_replicas: The number of Spark worker jobs to run.
+#        Apache Spark uses a master/worker architecture where multiple workers
+#        execute analytic tasks.
+#   cluster_worker_cores: The number of cores to request from the underlying
+#        execution container orchestration platform. In general, this supports
+#        fractional CPU allocations. This is the maximum CPU allocation the
+#        worker containers will have access to.
+#   cluster_worker_memory: The total amount of host memory to expose to worker
+#        containers. Can be specified in GB or MB: 1GB, 512M, etc.
+#   spark_worker_cores: Number of cores the Spark worker process should request.
+#        This number must be an integer. Whatever CPU allocation is requested
+#        will be presented to the container as CPUs. Spark requires integer core counts.
+#   spark_worker_memory: The amount of memory for the Spark worker process.
+#   jupyter_port: The port the jupyter notebook will be served on.
+#   spark_master_ui_port: The port the Apache Spark web user interface will use.
+#   spark_master_port: The port Apache Spark will accept connections on.
+#
+# ----------------------------------------------------------------------------------------------
+#
+# The proof of concept uses Tycho[5] on Kubernetes[6] as the execution environment.
+#   Tycho generates Kubernetes artifacts based on docker-compose metadata.
+#   It is now able to model horizontally scalable deployments like Spark.
+#   Workers are scaled according to the launch configuration and all connect to the master.
+#
+# 1. Jupyter Lab: https://jupyterlab.readthedocs.io/en/stable/#
+# 2. Hail: https://hail.is/
+# 3. Spark: https://spark.apache.org/
+# 4. Docker-Compose: https://docs.docker.com/compose/
+# 5. Tycho: https://github.com/helxplatform/tycho
+# 6. Kubernetes: https://kubernetes.io/
+# 
+services:
+
+  # A non-root container for JupyterLab.
+  #   A multi-stage Docker build takes Java and Python from bitnami containers.
+  #   A version of Spark compatible with Hail is installed.
+  #   It integrates Hail into Spark and Spark into Jupyter.
+  jupyter:
+    image: heliumdatastage/jupyter-hail:latest
+    ports:
+      - '${jupyter_port}:8000'
+
+  # This is the bitnami spark container, a minimalist, ubuntu based, non-root image with
+  # good configuration options and support for recent spark versions.
+  spark:
+    image: heliumdatastage/spark
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=0.0.0.0
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - '${spark_master_ui_port}:8080'
+      - '${spark_master_port}:7077'
+
+  # The worker process uses the same image as the master and can be scaled up or down.
+  #
+  # Each replica must be able to connect to the master.
+  #   Note that the worker connects to the master using the URL:
+  #         spark://spark-${app_id}:${spark_master_port} 
+  #     The ${app_id} is a GUID assigned by the infrastructure for this instance.
+  #     The hostname of other containers in this app is given by <container>-${app_id}
+  #     The master is called spark and listens on port ${spark_master_port},
+  #         hence spark://spark-${app_id}:${spark_master_port}
+  # This container uses docker-compose metadata to specify deployment characteristics.
+  #   These include replicas, CPU and memory requirements, etc.
+  #   Number of instances is controlled by the cluster_worker_replicas setting.
+  #   
+  spark-worker:
+    image: heliumdatastage/spark
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-${app_id}:${spark_master_port}
+      - SPARK_WORKER_MEMORY=${spark_worker_memory}
+      - SPARK_WORKER_CORES=${spark_worker_cores}
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    deploy:
+      mode: replicated
+      replicas: ${cluster_worker_replicas}
+      resources:
+        limits:
+          cpus: '${cluster_worker_cores}'
+          memory: ${cluster_worker_memory}
+        reservations:
+          cpus: '${cluster_worker_cores}'
+          memory: ${cluster_worker_memory}
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 60s
+
+
+

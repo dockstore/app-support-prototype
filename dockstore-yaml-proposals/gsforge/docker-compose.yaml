@@ -1,0 +1,26 @@
+---
+# Docker compose formatted system.
+# NOTE: NB_PREFIX has to be set to "/" as an environment variable if running locally. 
+# If running via tycho from HeLx AppStore, tycho will set the variable.
+version: "3.0"
+services:
+  jupyter:
+    image: systemsgenetics/gsforge_interactive:v0.5
+    entrypoint:
+      - /bin/bash
+      - -c
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    ports:
+      - 10000:8888
+#    volumes:
+#      - pvc://stdnfs:/home/jovyan/work 
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 
