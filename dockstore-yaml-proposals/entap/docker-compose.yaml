@@ -1,0 +1,6 @@
+version: "3"
+services:
+  blackbalsam:
+    image: entap/entap:latest
+    ports:
+      - 5000:5000
