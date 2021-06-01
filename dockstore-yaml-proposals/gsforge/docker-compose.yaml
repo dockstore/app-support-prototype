@@ -13,7 +13,7 @@ services:
     environment:
       - JUPYTER_ENABLE_LAB=yes
     ports:
-      - 10000:8888
+      - 8888:8888
 #    volumes:
 #      - pvc://stdnfs:/home/jovyan/work 
     deploy:
