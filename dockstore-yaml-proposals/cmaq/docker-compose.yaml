@@ -1,0 +1,22 @@
+---
+# Docker compose formatted system.
+# NOTE: NB_PREFIX has to be set to "/" as an environment variable if running locally. 
+# If running via tycho from Helx Appstore, tycho will set the variable.
+version: "3"
+services:
+  cmaq:
+    image: helxplatform/cmaq:latest
+    entrypoint:
+      - /bin/bash
+      - -c
+      - /usr/local/bin/ttyd -p 7681 -b ${NB_PREFIX} /bin/bash
+    ports:
+      - 7681:7681
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 64000M
+        reservations:
+          cpus: '1'
+          memory: 4000M 
