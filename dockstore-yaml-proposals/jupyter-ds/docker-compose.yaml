@@ -1,7 +1,7 @@
 ---
 # Docker compose formatted system.
 # NOTE: NB_PREFIX has to be set to "/" as an environment variable if running locally. 
-# If running via tycho from CommonsShare AppStore, tycho will set the variable.
+# If running via tycho from HeLx AppStore, tycho will set the variable.
 version: "3"
 services:
   jupyter-ds:
