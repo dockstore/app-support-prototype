@@ -5,7 +5,7 @@
 version: "3"
 services:
   cmaq:
-    image: helxplatform/cmaq:latest
+    image: helxplatform/cmaq:202106092315
     entrypoint:
       - /bin/bash
       - -c
