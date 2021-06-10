@@ -9,7 +9,7 @@ services:
     entrypoint:
       - /bin/bash
       - -c
-      - /usr/local/bin/ttyd -p 7681 -b ${NB_PREFIX} /bin/bash
+      - start.sh jupyter lab --LabApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
     ports:
       - 7681:7681
     deploy:
