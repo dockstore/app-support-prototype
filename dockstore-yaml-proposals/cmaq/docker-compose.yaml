@@ -6,9 +6,9 @@ version: "3"
 services:
   cmaq:
     # image based from jupyter/datascience-notebook (latest)
-    # image: helxplatform/cmaq:202106092315
+    image: helxplatform/cmaq:202106092315
     # image based from heliumdatastage/jupyter-datascience:v0.0.3
-    image: helxplatform/cmaq:202106100132
+    # image: helxplatform/cmaq:202106100132
     entrypoint:
       - /bin/bash
       - -c
