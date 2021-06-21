@@ -1,7 +1,7 @@
 version: "1.0"
 services:
   verdi:
-    image: helxplatform/cloudtop-verdi-1.0.0
+    image: helxplatform/cloudtop-verdi:develop-0.0.2
     container_name: verdi
     env:
      - VNC_RESOLUTION=1980x1024
