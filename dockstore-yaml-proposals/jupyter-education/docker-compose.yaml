@@ -5,11 +5,11 @@
 version: "3"
 services:
   jupyter-education:
-    image: helxplatform/jupyter-education:0.0.2
+    image: helxplatform/jupyter-education:0.0.3
     entrypoint:
       - /bin/bash
       - -c
-      - start-notebook.sh --NotebookApp.token= --ip="*" --NotebookApp.base_url=${NB_PREFIX} --NotebookApp.allow_origin="*"
+      - start-jupyter-edu.sh
     ports:
       - 8888:8888
     deploy:
