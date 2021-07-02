@@ -5,7 +5,7 @@
 version: "3"
 services:
   jupyter-education:
-    image: helxplatform/jupyter-education:0.0.3
+    image: helxplatform/jupyter-education:0.0.4
     entrypoint:
       - /bin/bash
       - -c
