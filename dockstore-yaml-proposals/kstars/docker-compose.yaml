@@ -2,6 +2,7 @@ version: "3.6"
 services:
   kstars:
     image: wtstephens/kstarstest:latest
+    pull_policy: always
     container_name: kstars
     env:
      - VNC_RESOLUTION=1980x1024
