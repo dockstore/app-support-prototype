@@ -1,8 +1,7 @@
 version: "3.6"
 services:
   kstars:
-    image: wtstephens/kstarstest:latest
-    pull_policy: always
+    image: helxplatform/cloudtop-kstars:develop-latest
     container_name: kstars
     env:
      - VNC_RESOLUTION=1980x1024
@@ -17,5 +16,5 @@ services:
           cpus: '8'
           memory: 64000M
         reservations:
-          cpus: '1'
-          memory: 4000M 
+          cpus: '3'
+          memory: 4000M
