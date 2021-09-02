@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   kstars:
-    image: helxplatform/cloudtop-kstars:0.1.1
+    image: helxplatform/cloudtop-kstars:0.1.0
     container_name: kstars
     env:
      - VNC_RESOLUTION=1980x1024
