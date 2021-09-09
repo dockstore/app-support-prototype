@@ -7,7 +7,7 @@ services:
   entrypoint:
    - /bin/sh
    - -c
-   - /filebrowser --noauth --root="/home" --address=0.0.0.0 --database=/home/${USER_NAME}/filebrowser.db
+   - /filebrowser --noauth --root="/home" --address=0.0.0.0 --database=/config/filebrowser.db
   deploy:
     resources:
       limits:
